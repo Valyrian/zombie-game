@@ -3,10 +3,10 @@ var playerImage = new Image();
 playerImage.src = "sprites/player.png";
 
 var zombieImage = new Image();
-zombieImage.src = "sprites/zombie.png";
+zombieImage.src = "sprites/zombie_r.png";
 
-var goldenImage = new Image();
-goldenImage.src = "sprites/golden.png";
+var zombieImage2 = new Image();
+zombieImage2.src = "sprites/zombie_g.png";
 
 nextId = 0; //global variable for creating unique ids for characters
 
@@ -74,7 +74,7 @@ var initGame = function(){
 		maxSpeed: 50,
 		x: 0,
 		y: canvas.height-64,
-		image: goldenImage
+		image: zombieImage2
 	});
 }
 initGame();
