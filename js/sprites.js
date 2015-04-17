@@ -1,11 +1,11 @@
 function sprite (options) {
 
 	var animations = {
-		stand: {width: 64, height: 64, x: 0, y: 0,  frames: 1, fps: 1,  delay: 0,    up: 0, left: 1, down: 2, right: 3},
-		cast:  {width: 64, height: 64, x: 0, y: 0,  frames: 7, fps: 10, delay: 1000, up: 0, left: 1, down: 2, right: 3},
-		walk:  {width: 64, height: 64, x: 0, y: 8,  frames: 9, fps: 30, delay: 0,    up: 0, left: 1, down: 2, right: 3},
-		idle:  {width: 64, height: 64, x: 0, y: 4,  frames: 2, fps: 1,  delay: 0,    up: 0, left: 1, down: 2, right: 3},
-		die:   {width: 64, height: 64, x: 0, y: 20, frames: 6, fps: 10, delay: 0,    up: 0, left: 0, down: 0, right: 0}
+		stand: {width: 64, height: 64, x: 0, y: 0,  frames: 1, fps: 1,  delay: 0,    up: 0, left: 1, down: 2, right: 3, final: false},
+		cast:  {width: 64, height: 64, x: 0, y: 0,  frames: 7, fps: 10, delay: 1000, up: 0, left: 1, down: 2, right: 3, final: false},
+		walk:  {width: 64, height: 64, x: 0, y: 8,  frames: 9, fps: 30, delay: 0,    up: 0, left: 1, down: 2, right: 3, final: false},
+		idle:  {width: 64, height: 64, x: 0, y: 4,  frames: 2, fps: 1,  delay: 0,    up: 0, left: 1, down: 2, right: 3, final: false},
+		die:   {width: 64, height: 64, x: 0, y: 20, frames: 6, fps: 10, delay: 0,    up: 0, left: 0, down: 0, right: 0, final: true}
 	};
 	var getOffset = function(name, index){
 		var current = animations[name];

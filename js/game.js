@@ -1,4 +1,3 @@
-
 // Load Sprite Sheets
 var playerImage = new Image();
 playerImage.src = "sprites/player.png";
@@ -12,6 +11,7 @@ var enemies = 4;
 var score;
 var enemyInteval = 1000; //ms
 var player;
+gameOver = false;
 var highScoresUpdated;
 
 var stored = localStorage.getItem("highScores");
@@ -20,7 +20,6 @@ if(stored != null)
 else
 	var highScores = Array.apply(null, new Array(10)).map(function(){return 0}); //Populate array with 0 values
 
-initGame();
 // var container = $(canvas).parent();
 
 
@@ -75,6 +74,7 @@ var initGame = function(){
 		image: zombieImage
 	});
 }
+initGame();
 
 var isFree = function(x, y, w, h){
 	var b; //buffer zone so that enemies are not placed on player
@@ -118,27 +118,34 @@ var newEnemy = function(){
 	}
 }
 
-var lastEnemy; //time the latest enemy was created
+var startMenu = false;
+var instructions = false;
+var paused = false;
+gameEnding = false; //final dying animation
 
 function update(time){
-	updateGame(time);
-}
-
-function updateGame(time){
-	var c;
-	if(gameOver && !highScoresUpdated){
-		highScoresUpdated = true;
-		var oldLen = highScores.length;
-		highScores.push(score);
-		highScores.sort(function(a,b) {return b - a;}); //sort descending
-		highScores.length = oldLen;
-		localStorage.setItem("highScores", JSON.stringify(highScores));
-	}
+	if(instructions)
+		return;
+	if(paused)
+		return;
+	if(gameOver && !highScoresUpdated)
+		updateScores();
 	if(gameOver && keys[13])
 		initGame();
+	if(gameOver)
+		updateEnd();
+	if(!gameOver && gameEnding)
+		removePlayer();
+	if(!gameOver && !gameEnding)
+		updateGame(time);
+}
+
+var lastEnemy; //time the latest enemy was created
+function updateGame(time){
+	var c;
 	if(!lastEnemy)
 		lastEnemy = time;
-	if(time-lastEnemy > enemyInteval && !gameOver){
+	if(time-lastEnemy > enemyInteval){
 		newEnemy();
 		lastEnemy = time;
 	}
@@ -151,5 +158,32 @@ function updateGame(time){
 		if(c.dead)
 			characters.splice(i, 1); //remove chracter if dead
 		clicked[i]=false;
+	}
+}
+
+function updateScores(){
+	highScoresUpdated = true;
+	var oldLen = highScores.length;
+	highScores.push(score);
+	highScores.sort(function(a,b) {return b - a;}); //sort descending
+	highScores.length = oldLen;
+	localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+function removePlayer(){
+	for(var i = 0; i < characters.length;i++){
+		c = characters[i];
+		if(c.type === "player" && c.dead){
+			characters.splice(i, 1);
+			gameOver = true;
+			gameEnding = false;
+		}
+	}
+}
+
+function updateEnd(){
+	for(var i = 0; i < characters.length;i++){
+		c = characters[i];
+		c.endGame();
 	}
 }

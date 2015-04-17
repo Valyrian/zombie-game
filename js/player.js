@@ -4,11 +4,15 @@ function createPlayer (options) {
 
 	var lastUpdate = 0; //bad idea
 
+	that.endGame = function () {
+		that.action = "die";
+	}
+
 	that.update = function (time, keys, clicked) {
-		if(that.dying || that.dead || gameOver){
-			that.action  = "die";
-			return;
-		}
+		// if(that.dying || that.dead || gameOver){
+		// 	that.action  = "die";
+		// 	return;
+		// }
 
 		that.action  = "idle";
 		var directionX = 0;

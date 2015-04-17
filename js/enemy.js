@@ -36,6 +36,10 @@ function createEnemy (options) {
 	randomizeDirection();
 	updateOrientation();
 
+	that.endGame = function () {
+		that.action = "cast";
+	}
+
 	that.update = function (time, characters, clicked) {
 		if(clicked)
 			that.dying = true;
@@ -44,10 +48,10 @@ function createEnemy (options) {
 			return;
 		}
 
-		if(gameOver){
-			that.action = "cast";
-			return;
-		}
+		// if(gameOver){
+		// 	that.action = "cast";
+		// 	return;
+		// }
 
 		that.action = "walk";
 
@@ -64,7 +68,7 @@ function createEnemy (options) {
 		}else if(collision.role === "player"){
 			collision.action = "die";
 			collision.dying = true;
-			gameOver = true;
+			gameEnding = true;
 		}else{
 			randomizeDirection();
 			updateOrientation();
