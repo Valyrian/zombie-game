@@ -1,5 +1,5 @@
 
-// Load Sprite Sheet
+// Load Sprite Sheets
 var playerImage = new Image();
 playerImage.src = "sprites/player.png";
 
@@ -33,9 +33,8 @@ var initGame = function(){
 	score = 0;
 	characters.length = 0;
 	characters = new Array(enemies+1);
-	// Create sprite
+	// Create sprites
 	player = createPlayer({
-		// id: 0,
 		type: "player",
 		context: canvas.getContext("2d"),
 		maxSpeed: 100, //pixels per second
@@ -46,7 +45,6 @@ var initGame = function(){
 	characters[0] = player;
 
 	characters[1] = createEnemy({
-		// id: 1,
 		type: "enemy",
 		context: canvas.getContext("2d"),
 		maxSpeed: 50,
@@ -55,7 +53,6 @@ var initGame = function(){
 		image: zombieImage
 	});
 	characters[2] = createEnemy({
-		// id: 2,
 		type: "enemy",
 		context: canvas.getContext("2d"),
 		maxSpeed: 50,
@@ -64,7 +61,6 @@ var initGame = function(){
 		image: zombieImage
 	});
 	characters[3] = createEnemy({
-		// id: 3,
 		type: "enemy",
 		context: canvas.getContext("2d"),
 		maxSpeed: 50,
@@ -73,7 +69,6 @@ var initGame = function(){
 		image: zombieImage
 	});
 	characters[4] = createEnemy({
-		// id: 4,
 		type: "enemy",
 		context: canvas.getContext("2d"),
 		maxSpeed: 50,
@@ -85,7 +80,7 @@ var initGame = function(){
 initGame();
 
 var isFree = function(x, y, w, h){
-	var b; //buffer zone
+	var b; //buffer zone so that enemies are not placed on player
 	for(var i = 0; i < characters.length; i++){
 		c = characters[i];
 		if(c.type === "player")
@@ -105,18 +100,13 @@ var isFree = function(x, y, w, h){
 var newEnemy = function(){
 	var success = false;
 	for(var i = 0; i < 100; i++){
-		// var x0 = Math.floor(Math.random()*2)*(canvas.width-64);
-		// var y0 = Math.floor(Math.random()*2)*(canvas.height-64);
 		var x0 = Math.floor(Math.random()*(canvas.width-64));
 		var y0 = Math.floor(Math.random()*(canvas.height-64));
 		if(isFree(x0, y0, 64, 64)){
-			// console.log("inset");
 			success = true;
 			score++;
 			break;
 		}
-		// else
-		// 	console.log("fail");
 	}
 	if(success){
 		var enemy = createEnemy({
@@ -130,8 +120,6 @@ var newEnemy = function(){
 		characters.push(enemy);
 	}
 }
-
-
 
 function clear(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
@@ -171,41 +159,20 @@ function update(time){
 
 var grass = new Image();
 grass.src = 'sprites/grass.png';
-// var pattern = context.createPattern(grass, 'repeat');
 
 function render(time){
 	var pattern = context.createPattern(grass, 'repeat');
   context.fillStyle = pattern;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
-
 	for(var i = 0; i < characters.length;i++){
 		characters[i].render(time);
 	}
-
-
-  // context.textAlign="center";
 
   renderHud();
 
   for(var i=0; i<buttons.length;i++)
   	buttons[i].render();
-
- //  context.beginPath();
-	// context.lineWidth="1";
-  // context.rect(canvas.width/2-50, canvas.height-20-1, 20, 20);
-  // context.stroke();
-
-  // context.textBaseline = "top";
-  // context.textAlign="left";
-  // context.fillText("-", canvas.width/2-50, canvas.height-20-1);
-
-  // context.rect(canvas.width/2+30, canvas.height-20-1, 20, 20);
-  // context.stroke();
-
-  // context.fillText("+", canvas.width/2+30, canvas.height-20-1);
-  // context.textAlign="center";
-  
 
   if(playerDead){
   	renderHighScores(score);
@@ -213,8 +180,6 @@ function render(time){
 }
 
 var renderHighScores = function(newScore){
-	//If new high score
-	// console.log(highScores);
 	var message = "";
 	if(newScore >= highScores[highScores.length-1]){
 		context.fillStyle = "white";
@@ -230,8 +195,6 @@ var renderHighScores = function(newScore){
 
 	var newFound = false;
 	var newIndex = highScores.indexOf(newScore);
-	// if(newIndex > 0)
-	// 	console.log("highScore");
 
 	for(var i=0; i<highScores.length;i++){
 		var score = highScores[i]
@@ -252,21 +215,12 @@ var renderHighScores = function(newScore){
   context.textAlign="center";
   context.textBaseline = "top";
   context.fillText("Press enter to play again", canvas.width/2, 120 + 20 + highScores.length*25);
-  	// buttons[i].render();
 }
 
 var padInt = function(num, size) {
   var s = "000000000" + num;
   return s.substr(s.length-size);
 }
-
-// var renderEndText = function(){
-// 	context.fillStyle = "red";
-//   context.font = "bold 100px Arial";
-//   context.textAlign="center";
-//   context.textBaseline = "top";
-//   context.fillText("You lost!", canvas.width/2, 0);
-// }
 
 var renderHud = function(){
 	context.fillStyle = "black";
@@ -351,10 +305,6 @@ document.body.addEventListener("keyup", function (e) {
 
 function getMousePos(canvas, e) {
 	var rect = canvas.getBoundingClientRect();
-	// console.log(e.clientX, e.clientY);
-	// console.log(rect.left, rect.top);
-	// console.log(canvas.width, canvas.height);
-	// console.log(rect.width, rect.height);
 	return {
 		x: (e.clientX-rect.left)*(canvas.width/rect.width),
 		y: (e.clientY-rect.top)*(canvas.height/rect.height)
@@ -370,12 +320,8 @@ canvas.addEventListener("mousedown", function(e) {
 	for(var i=0; i<buttons.length; i++){
 		button = buttons[i];
 		dx = mousePos.x - button.x;
-		// console.log(dx);
 		dy = mousePos.y - button.y;
-		// console.log(dx, dy);
 		if((dx > 0) && (dx < button.w) && (dy > 0) && (dy < button.h)){
-			// console.log(button.text);
-			// button.clicked = true;
 			if(i===0)
 				player.maxSpeed-=5;
 			else
@@ -393,7 +339,3 @@ canvas.addEventListener("mousedown", function(e) {
 		}
 	}
 }, false);
-
-// canvas.addEventListener("mouseup", function(e) {
-// 	var mousePos = getMousePos(canvas, e);
-// }, false);

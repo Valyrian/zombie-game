@@ -3,8 +3,6 @@ function createEnemy (options) {
 	that.dying = false;
 	that.dead = false;
 
-	// that.maxSpeed = 50; //pixels per second
-
 	var lastUpdate = 0; //bad idea
 	var directionX = 0;
 	var directionY = 0;
@@ -42,7 +40,6 @@ function createEnemy (options) {
 			return;
 		}
 
-		// var player = characters[0];
 		if(playerDead){
 			that.action = "cast";
 			return;
@@ -50,35 +47,6 @@ function createEnemy (options) {
 
 		that.action = "walk";
 
-		// var directionX = 0;
-		// var directionY = 0;
-
-		// var maxRandom = 100;
-
-		// var dx = that.x - player.x + ((Math.random() * maxRandom) - maxRandom);
-		// var dy = that.y - player.y + ((Math.random() * maxRandom) - maxRandom);
-
-		// if(dx > 0)
-		// 	directionX = -1;
-		// if(dx < 0)
-		// 	directionX = 1;
-		// if(dy > 0)
-		// 	directionY = -1;
-		// if(dy < 0)
-		// 	directionY = 1;
-
-		// if(Math.abs(dx) > Math.abs(dy)){
-		// 	if(directionX === 1)
-		// 		that.direction = "right"
-		// 	else
-		// 		that.direction = "left"
-		// }else{
-		// 	if(directionY === 1)
-		// 		that.direction = "down"
-		// 	else
-		// 		that.direction = "up"
-		// }
-		//Calculate new position based on elapsed time
 		var collision = false;
 		var elapsedTime = time - lastUpdate;
 		var newX = that.x + Math.round(directionX*that.maxSpeed*(elapsedTime/1000));
@@ -106,10 +74,6 @@ function createEnemy (options) {
 				collision = c;
 		}
 
-
-		
-
-
 		//Only update postion if no collision is detected
 		if(!collision){
 			that.x = newX;
@@ -120,7 +84,6 @@ function createEnemy (options) {
 			playerDead = true;
 		}else{
 			randomizeDirection();
-			// console.log(directionX, directionY)
 		}
 
 		lastUpdate = time;
