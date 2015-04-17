@@ -35,7 +35,8 @@ function sprite (options) {
 	that.x = options.x;
 	that.y = options.y;
 	that.maxSpeed = options.maxSpeed;
-	that.type = options.type;
+	// that.type = options.type;
+	that.ai = options.ai;
 	that.directionX = 0; //that.direction 1, 0 or -1
 	that.directionY = 0;
 

@@ -22,6 +22,31 @@ function createEnemy (options) {
 			directionY = 1;
 	}
 
+	var homingDirection = function(){
+		directionX = 0;
+		directionY = 0;
+		var margin = 10;
+		var dx = player.x - that.x
+		var dy = player.y - that.y
+		if(dx > margin)
+			directionX = 1;
+		if(dx < -margin)
+			directionX = -1;
+		if(dy > margin)
+			directionY = 1;
+		if(dy < -margin)
+			directionY = -1;
+		// console.log(directionX, directionY);
+	}
+
+	var changeDirection = function(){
+		if(that.ai == "homing")
+			homingDirection();
+		else
+			randomizeDirection();
+		updateOrientation();
+	}
+
 	var updateOrientation = function(){
 		if(directionY === -1)
 			that.direction = "up";
@@ -33,8 +58,7 @@ function createEnemy (options) {
 			that.direction = "down";
 	}
 
-	randomizeDirection();
-	updateOrientation();
+	changeDirection();
 
 	that.endGame = function () {
 		that.action = "cast";
@@ -52,6 +76,8 @@ function createEnemy (options) {
 		// 	that.action = "cast";
 		// 	return;
 		// }
+		if(that.ai == "homing")
+			changeDirection();
 
 		that.action = "walk";
 
@@ -70,8 +96,8 @@ function createEnemy (options) {
 			collision.dying = true;
 			gameEnding = true;
 		}else{
-			randomizeDirection();
-			updateOrientation();
+			changeDirection();
+			// updateOrientation();
 		}
 
 		lastUpdate = time;

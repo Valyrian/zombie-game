@@ -5,6 +5,9 @@ playerImage.src = "sprites/player.png";
 var zombieImage = new Image();
 zombieImage.src = "sprites/zombie.png";
 
+var goldenImage = new Image();
+goldenImage.src = "sprites/golden.png";
+
 nextId = 0; //global variable for creating unique ids for characters
 
 var enemies = 4;
@@ -32,7 +35,7 @@ var initGame = function(){
 	characters = new Array(enemies+1);
 	// Create sprites
 	player = createPlayer({
-		type: "player",
+		// type: "human",
 		context: canvas.getContext("2d"),
 		maxSpeed: 100, //pixels per second
 		x: canvas.width/2-32,
@@ -42,7 +45,7 @@ var initGame = function(){
 	characters[0] = player;
 
 	characters[1] = createEnemy({
-		type: "enemy",
+		ai: "random",
 		context: canvas.getContext("2d"),
 		maxSpeed: 50,
 		x: 0,
@@ -50,7 +53,7 @@ var initGame = function(){
 		image: zombieImage
 	});
 	characters[2] = createEnemy({
-		type: "enemy",
+		ai: "random",
 		context: canvas.getContext("2d"),
 		maxSpeed: 50,
 		x: canvas.width-64,
@@ -58,7 +61,7 @@ var initGame = function(){
 		image: zombieImage
 	});
 	characters[3] = createEnemy({
-		type: "enemy",
+		ai: "random",
 		context: canvas.getContext("2d"),
 		maxSpeed: 50,
 		x: canvas.width-64,
@@ -66,12 +69,12 @@ var initGame = function(){
 		image: zombieImage
 	});
 	characters[4] = createEnemy({
-		type: "enemy",
+		ai: "homing",
 		context: canvas.getContext("2d"),
 		maxSpeed: 50,
 		x: 0,
 		y: canvas.height-64,
-		image: zombieImage
+		image: goldenImage
 	});
 }
 initGame();
@@ -80,7 +83,7 @@ var isFree = function(x, y, w, h){
 	var b; //buffer zone so that enemies are not placed on player
 	for(var i = 0; i < characters.length; i++){
 		c = characters[i];
-		if(c.type === "player")
+		if(c.role === "player")
 			b = 64;
 		else
 			b = 0;
@@ -107,7 +110,7 @@ var newEnemy = function(){
 	}
 	if(success){
 		var enemy = createEnemy({
-			type: "enemy",
+			// type: "enemy",
 			context: canvas.getContext("2d"),
 			maxSpeed: 50,
 			x: x0,
@@ -184,7 +187,7 @@ function updateScores(){
 function removePlayer(){
 	for(var i = 0; i < characters.length;i++){
 		c = characters[i];
-		if(c.type === "player" && c.dead){
+		if(c.role === "player" && c.dead){
 			characters.splice(i, 1);
 			gameOver = true;
 			gameEnding = false;
