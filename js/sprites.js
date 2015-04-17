@@ -46,6 +46,33 @@ function sprite (options) {
 	var lastRender = 0;
 	var offset = getOffset(that.action , frameIndex);
 
+	that.collision = function (newX, newY, character) {
+		var collision = false;
+		//Check that enemy isnt going off the canvas
+		if(((newX + character.width - character.buffer.right) > canvas.width) ||
+			(newX + character.buffer.left < 0) ||
+			((newY + character.height - character.buffer.down) > canvas.height) ||
+			(newY + character.buffer.up < 0))
+			collision = "boundary";
+
+		//Check for collisions with other characters
+		for(var i=0; i<characters.length;i++){
+			c = characters[i];
+			if(c.id === character.id) //is this one
+				continue;
+
+			var dx = newX - c.x;
+			var dy = newY - c.y;
+
+			if(  (dx < c.width - c.buffer.right - character.buffer.left) 
+				&& (dx > -character.width + character.buffer.right + c.buffer.left) 
+				&& (dy < c.height - c.buffer.down - character.buffer.up) 
+				&& (dy > -character.height + character.buffer.down + c.buffer.up))
+				collision = c;
+		}
+		return collision;
+	}
+
 	// Draw current sprite image
 	that.render = function (time) {
 		if((time-lastRender)>(1000/animations[that.action ].fps)){

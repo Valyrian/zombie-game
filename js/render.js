@@ -20,7 +20,7 @@ function render(time){
   for(var i=0; i<buttons.length;i++)
   	buttons[i].render();
 
-  if(playerDead){
+  if(gameOver){
   	renderHighScores(score);
   }
 }

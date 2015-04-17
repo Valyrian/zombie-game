@@ -1,10 +1,11 @@
 function createPlayer (options) {
 	var that = sprite(options);
+	that.role = "player";
 
 	var lastUpdate = 0; //bad idea
 
 	that.update = function (time, keys, clicked) {
-		if(that.dying || that.dead || playerDead){
+		if(that.dying || that.dead || gameOver){
 			that.action  = "die";
 			return;
 		}
@@ -34,20 +35,21 @@ function createPlayer (options) {
 		}
 
 		//Calculate new position based on elapsed time
-		var collision;
+		// var collision;
 		var elapsedTime = time - lastUpdate;
 		var newX = that.x + Math.round(directionX*that.maxSpeed*(elapsedTime/1000));
 		var newY = that.y + Math.round(directionY*that.maxSpeed*(elapsedTime/1000));
 
-		//Check that player isnt going off the canvas
-		if(((newX + that.width - that.buffer.right) > canvas.width) ||
-			(newX + that.buffer.left < 0) ||
-			((newY + that.height - that.buffer.down) > canvas.height) ||
-			(newY + that.buffer.up < 0))
-			collision = {};
+		// //Check that player isnt going off the canvas
+		// if(((newX + that.width - that.buffer.right) > canvas.width) ||
+		// 	(newX + that.buffer.left < 0) ||
+		// 	((newY + that.height - that.buffer.down) > canvas.height) ||
+		// 	(newY + that.buffer.up < 0))
+		// 	collision = {};
+		var collision = that.collision(newX, newY, that);
 
-		//Only update postion if no collision is detected
-		if(!collision){
+		//Only update postion if no collision with a wall
+		if(collision != "boundary"){
 			that.x = newX;
 			that.y = newY;
 		}

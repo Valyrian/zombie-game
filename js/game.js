@@ -20,12 +20,13 @@ if(stored != null)
 else
 	var highScores = Array.apply(null, new Array(10)).map(function(){return 0}); //Populate array with 0 values
 
+initGame();
 // var container = $(canvas).parent();
 
-var characters = [];
 
+var characters = [];
 var initGame = function(){
-	playerDead = false;
+	gameOver = false;
 	highScoresUpdated = false;
 	score = 0;
 	characters.length = 0;
@@ -74,7 +75,6 @@ var initGame = function(){
 		image: zombieImage
 	});
 }
-initGame();
 
 var isFree = function(x, y, w, h){
 	var b; //buffer zone so that enemies are not placed on player
@@ -121,8 +121,12 @@ var newEnemy = function(){
 var lastEnemy; //time the latest enemy was created
 
 function update(time){
+	updateGame(time);
+}
+
+function updateGame(time){
 	var c;
-	if(playerDead && !highScoresUpdated){
+	if(gameOver && !highScoresUpdated){
 		highScoresUpdated = true;
 		var oldLen = highScores.length;
 		highScores.push(score);
@@ -130,11 +134,11 @@ function update(time){
 		highScores.length = oldLen;
 		localStorage.setItem("highScores", JSON.stringify(highScores));
 	}
-	if(playerDead && keys[13])
+	if(gameOver && keys[13])
 		initGame();
 	if(!lastEnemy)
 		lastEnemy = time;
-	if(time-lastEnemy > enemyInteval && !playerDead){
+	if(time-lastEnemy > enemyInteval && !gameOver){
 		newEnemy();
 		lastEnemy = time;
 	}
