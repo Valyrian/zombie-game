@@ -119,18 +119,25 @@ var newEnemy = function(){
 }
 
 var startMenu = false;
-var instructions = false;
+var instructions = true;
 var paused = false;
 gameEnding = false; //final dying animation
 
 function update(time){
-	if(instructions)
+	if(instructions){
+		if(pressed["enter"]) 
+			instructions = false;
 		return;
-	if(paused)
-		return;
+	}
+	if(paused){
+		// if(pressed["esc"] || pressed["p"]) 
+			// paused = false;
+		// console.log("unpause");
+		return
+	}
 	if(gameOver && !highScoresUpdated)
 		updateScores();
-	if(gameOver && keys[13])
+	if(gameOver && pressed["enter"])
 		initGame();
 	if(gameOver)
 		updateEnd();
@@ -143,6 +150,10 @@ function update(time){
 var lastEnemy; //time the latest enemy was created
 function updateGame(time){
 	var c;
+	// if(pressed["esc"] || pressed["p"]){		
+	// 	console.log("pause");
+	// 	paused = true;
+	// }
 	if(!lastEnemy)
 		lastEnemy = time;
 	if(time-lastEnemy > enemyInteval){
@@ -151,10 +162,10 @@ function updateGame(time){
 	}
 	for(var i = 0; i < characters.length;i++){
 		c = characters[i];
-		if(c.type === "player")
-			c.update(time, keys, clicked[i]);
-		else if(c.type === "enemy")
+		// if(c.type === "player")
 			c.update(time, characters, clicked[i]);
+		// else if(c.type === "enemy")
+		// 	c.update(time, characters, clicked[i]);
 		if(c.dead)
 			characters.splice(i, 1); //remove chracter if dead
 		clicked[i]=false;

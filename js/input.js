@@ -1,13 +1,15 @@
-var keys = [];
-[37, 38, 39, 40, 65, 87, 68, 83, 13]
+var pressed = [];
+var keys = {37:"left", 38:"up", 39:"right", 40:"down", 65:"a", 87:"w", 68:"d", 83:"s", 13:"enter", 27:"esc", 80:"p"}
+
+// [37, 38, 39, 40, 65, 87, 68, 83, 13]
 document.body.addEventListener("keydown", function (e) {
-	if([37, 38, 39, 40, 65, 87, 68, 83, 13].indexOf(e.keyCode) > -1)
+	if(e.keyCode in keys)
 		e.preventDefault();
-  keys[e.keyCode] = true;
+  pressed[keys[e.keyCode]] = true;
 });
 document.body.addEventListener("keyup", function (e) {
 	// e.preventDefault();
-  keys[e.keyCode] = false;
+  pressed[keys[e.keyCode]] = false;
 });
 
 function getMousePos(canvas, e) {

@@ -8,7 +8,7 @@ function createPlayer (options) {
 		that.action = "die";
 	}
 
-	that.update = function (time, keys, clicked) {
+	that.update = function (time, characters, clicked) {
 		// if(that.dying || that.dead || gameOver){
 		// 	that.action  = "die";
 		// 	return;
@@ -17,22 +17,22 @@ function createPlayer (options) {
 		that.action  = "idle";
 		var directionX = 0;
 		var directionY = 0;
-		if (keys[37] || keys[65]){
+		if (pressed["left"] || pressed["a"]){
 			that.action  = "walk";
 			that.direction = "left";
 			directionX = -1;
 		}
-		if (keys[38] || keys[87]){
+		if (pressed["up"] || pressed["w"]){
 			that.action  = "walk";
 			that.direction = "up";
 			directionY = -1;
 		}
-		if (keys[39] || keys[68]){
+		if (pressed["right"] || pressed["d"]){
 			that.action  = "walk";
 			that.direction = "right";
 			directionX = 1;
 		}
-		if (keys[40] || keys[83]){
+		if (pressed["down"] || pressed["s"]){
 			that.action  = "walk";
 			that.direction = "down";
 			directionY = 1;

@@ -15,14 +15,37 @@ function render(time){
 		characters[i].render(time);
 	}
 
-  renderHud();
+	renderHud();
 
-  for(var i=0; i<buttons.length;i++)
-  	buttons[i].render();
+	if(!instructions)
+	  for(var i=0; i<buttons.length;i++)
+	  	buttons[i].render();
 
   if(gameOver){
   	renderHighScores(score);
   }
+
+  if(instructions)
+  	renderInstructions();
+}
+
+var renderInstructions = function(newScore){
+	// context.globalAlpha=0.1;
+	// context.fillStyle="white";
+	// context.fillRect(0, 0, canvas.width, canvas.height);
+	context.fillStyle="rgba(128, 128, 128, 0.8)";
+	context.fillRect(0, 0, canvas.width, canvas.height);
+
+	var instructions = new Image();
+	instructions.src = "images/instructions.png";
+	// context.globalAlpha=1;
+	context.drawImage(instructions,100,100);
+
+	context.fillStyle = "white";
+  context.font = "bold 20px Arial";
+  context.textAlign="center";
+  context.textBaseline = "top";
+  context.fillText("Press enter to start playing", canvas.width/2, 500);
 }
 
 var renderHighScores = function(newScore){
