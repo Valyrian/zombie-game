@@ -50,7 +50,8 @@ var renderInstructions = function(newScore){
 
 var renderHighScores = function(newScore){
 	var message = "";
-	if(newScore >= highScores[highScores.length-1]){
+	// if(newScore >= highScores[highScores.length-1]){
+	if(highScores.isHighScore(newScore)){
 		context.fillStyle = "white";
 		message = "High Score!";
 	}else{
@@ -62,11 +63,12 @@ var renderHighScores = function(newScore){
   context.textBaseline = "top";
   context.fillText(message, canvas.width/2, 0);
 
+  var scores = highScores.get();
 	var newFound = false;
-	var newIndex = highScores.indexOf(newScore);
+	var newIndex = scores.indexOf(newScore);
 
-	for(var i=0; i<highScores.length;i++){
-		var score = highScores[i]
+	for(var i=0; i<scores.length;i++){
+		var score = scores[i]
 		message = "# " + padInt(i+1, 2) + ".    " + padInt(score, 4);
 		if(i === newIndex && !newFound){
 			context.fillStyle = "red";
@@ -83,7 +85,7 @@ var renderHighScores = function(newScore){
   context.font = "bold 20px Arial";
   context.textAlign="center";
   context.textBaseline = "top";
-  context.fillText("Press enter to play again", canvas.width/2, 120 + 20 + highScores.length*25);
+  context.fillText("Press enter to play again", canvas.width/2, 120 + 20 + scores.length*25);
 }
 
 var padInt = function(num, size) {

@@ -17,19 +17,43 @@ var player;
 gameOver = false;
 var highScoresUpdated;
 
-var stored = localStorage.getItem("highScores");
-if(stored != null)
-	highScores = JSON.parse(stored);
-else
-	var highScores = Array.apply(null, new Array(10)).map(function(){return 0}); //Populate array with 0 values
+function highScores(){
+	var scores;
+	var stored = localStorage.getItem("highScores");
+	if(stored != null)
+		scores = JSON.parse(stored);
+	else
+		scores = Array.apply(null, new Array(10)).map(function(){return 0}); //Populate array with 0 values
+	
+	var that = {}; 
+	that.upToDate = false;
+	that.get = function(){
+		return scores;
+	}
+
+	that.add = function(score){
+		that.upToDate = true;
+		var oldLen = scores.length;
+		scores.push(score);
+		scores.sort(function(a,b) {return b - a;}); //sort descending
+		scores.length = oldLen;
+		localStorage.setItem("highScores", JSON.stringify(scores));
+	}
+
+	that.isHighScore = function(score){
+		return (score >= scores[scores.length-1])
+	}
+	return that;
+}
+var highScores = highScores();
 
 // var container = $(canvas).parent();
 
 
 var characters = [];
-var initGame = function(){
+var newGame = function(){
 	gameOver = false;
-	highScoresUpdated = false;
+	highScores.upToDate = false;
 	score = 0;
 	characters.length = 0;
 	characters = new Array(enemies+1);
@@ -77,7 +101,7 @@ var initGame = function(){
 		image: zombieImage2
 	});
 }
-initGame();
+newGame();
 
 var isFree = function(x, y, w, h){
 	var b; //buffer zone so that enemies are not placed on player
@@ -138,10 +162,10 @@ function update(time){
 		// console.log("unpause");
 		return
 	}
-	if(gameOver && !highScoresUpdated)
-		updateScores();
+	if(gameOver && !highScores.upToDate)
+		highScores.add(score);
 	if(gameOver && pressed["enter"])
-		initGame();
+		newGame();
 	if(gameOver)
 		updateEnd();
 	if(!gameOver && gameEnding)
@@ -175,14 +199,6 @@ function updateGame(time){
 	}
 }
 
-function updateScores(){
-	highScoresUpdated = true;
-	var oldLen = highScores.length;
-	highScores.push(score);
-	highScores.sort(function(a,b) {return b - a;}); //sort descending
-	highScores.length = oldLen;
-	localStorage.setItem("highScores", JSON.stringify(highScores));
-}
 
 function removePlayer(){
 	for(var i = 0; i < characters.length;i++){
