@@ -1,5 +1,5 @@
 function createEnemy (options) {
-	var that = sprite(options);
+	var that = character(options);
 	that.dying = false;
 	that.dead = false;
 	that.role = "enemy";

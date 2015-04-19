@@ -1,5 +1,5 @@
 function createPlayer (options) {
-	var that = sprite(options);
+	var that = character(options);
 	that.role = "player";
 
 	var lastUpdate = 0; //bad idea

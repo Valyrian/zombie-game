@@ -1,4 +1,4 @@
-function sprite (options) {
+function character (options) {
 
 	var animations = {
 		stand: {width: 64, height: 64, x: 0, y: 0,  frames: 1, fps: 1,  delay: 0,    up: 0, left: 1, down: 2, right: 3, final: false},
