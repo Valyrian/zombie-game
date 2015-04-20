@@ -1,11 +1,29 @@
 function highScores(){
 	var scores;
 	var stored = localStorage.getItem("highScores");
+	var firebaseUrl = "https://zombie-game.firebaseio.com/.json";
 	if(stored != null)
 		scores = JSON.parse(stored);
 	else
 		scores = Array.apply(null, new Array(10)).map(function(){return 0}); //Populate array with 0 values
 	
+	var firebaseGet = function(){
+		$.getJSON(firebaseUrl, function (data){
+			scores = data;
+		});
+	}
+
+	var firebaseSave = function(){
+		var data = JSON.stringify(scores);
+		$.ajax({
+			url: firebaseUrl,
+			type: 'PUT',
+			data: data
+		});
+	}
+
+	firebaseGet(firebaseUrl);
+
 	var that = {}; 
 	that.upToDate = false;
 	that.get = function(){
@@ -19,6 +37,7 @@ function highScores(){
 		scores.sort(function(a,b) {return b - a;}); //sort descending
 		scores.length = oldLen;
 		localStorage.setItem("highScores", JSON.stringify(scores));
+		firebaseSave();
 	}
 
 	that.isHighScore = function(score){
@@ -26,6 +45,8 @@ function highScores(){
 	}
 	return that;
 }
+
+
 var highScores = highScores();
 
 // Load Sprite Sheets
