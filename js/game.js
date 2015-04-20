@@ -1,22 +1,3 @@
-// Load Sprite Sheets
-var playerImage = new Image();
-playerImage.src = "sprites/player.png";
-
-var zombieImage = new Image();
-zombieImage.src = "sprites/zombie_r.png";
-
-var zombieImage2 = new Image();
-zombieImage2.src = "sprites/zombie_g.png";
-
-nextId = 0; //global variable for creating unique ids for characters
-
-var enemies = 4;
-var score;
-var enemyInteval = 1000; //ms
-var player;
-gameOver = false;
-var highScoresUpdated;
-
 function highScores(){
 	var scores;
 	var stored = localStorage.getItem("highScores");
@@ -47,108 +28,180 @@ function highScores(){
 }
 var highScores = highScores();
 
-// var container = $(canvas).parent();
+// Load Sprite Sheets
+var playerImage = new Image();
+playerImage.src = "sprites/player.png";
 
+var zombieImage = new Image();
+zombieImage.src = "sprites/zombie_r.png";
+
+var zombieImage2 = new Image();
+zombieImage2.src = "sprites/zombie_g.png";
+
+nextId = 0; //global variable for creating unique ids for characters
+
+var score;
+var player;
+gameOver = false;
 
 var characters = [];
-var newGame = function(){
-	gameOver = false;
-	highScores.upToDate = false;
-	score = 0;
-	characters.length = 0;
-	characters = new Array(enemies+1);
-	// Create sprites
-	player = createPlayer({
-		// type: "human",
-		context: canvas.getContext("2d"),
-		maxSpeed: 100, //pixels per second
-		x: canvas.width/2-32,
-		y: canvas.height/2-32,
-		image: playerImage
-	});
-	characters[0] = player;
+var game = game();
 
-	characters[1] = createEnemy({
-		ai: "random",
-		context: canvas.getContext("2d"),
-		maxSpeed: 50,
-		x: 0,
-		y: 0,
-		image: zombieImage
-	});
-	characters[2] = createEnemy({
-		ai: "random",
-		context: canvas.getContext("2d"),
-		maxSpeed: 50,
-		x: canvas.width-64,
-		y: 0,
-		image: zombieImage
-	});
-	characters[3] = createEnemy({
-		ai: "random",
-		context: canvas.getContext("2d"),
-		maxSpeed: 50,
-		x: canvas.width-64,
-		y: canvas.height-64,
-		image: zombieImage
-	});
-	characters[4] = createEnemy({
-		ai: "homing",
-		context: canvas.getContext("2d"),
-		maxSpeed: 50,
-		x: 0,
-		y: canvas.height-64,
-		image: zombieImage2
-	});
-}
-newGame();
+function game(){
+	var enemies = 4;
+	var enemyInteval = 1000; //ms
+	that = {};
 
-var isFree = function(x, y, w, h){
-	var b; //buffer zone so that enemies are not placed on player
-	for(var i = 0; i < characters.length; i++){
-		c = characters[i];
-		if(c.role === "player")
-			b = 64;
-		else
-			b = 0;
-		var dx = x - c.x;
-		var dy = y - c.y;
+	var newGame = function(){
+		gameOver = false;
+		highScores.upToDate = false;
+		score = 0;
+		characters.length = 0;
+		characters = new Array(enemies+1);
+		// Create sprites
+		player = createPlayer({
+			// type: "human",
+			context: canvas.getContext("2d"),
+			maxSpeed: 100, //pixels per second
+			x: canvas.width/2-32,
+			y: canvas.height/2-32,
+			image: playerImage
+		});
+		characters[0] = player;
 
-		if((dx < c.width + b) && (dx > -(w + b)) && (dy < c.height + b) && (dy > -(h + b) ))
-			return false;
-	}
-	return true
-}
-
-
-var newEnemy = function(){
-	var success = false;
-	for(var i = 0; i < 100; i++){
-		var x0 = Math.floor(Math.random()*(canvas.width-64));
-		var y0 = Math.floor(Math.random()*(canvas.height-64));
-		if(isFree(x0, y0, 64, 64)){
-			success = true;
-			score++;
-			break;
-		}
-	}
-	if(success){
-		var enemy = createEnemy({
-			// type: "enemy",
+		characters[1] = createEnemy({
+			ai: "random",
 			context: canvas.getContext("2d"),
 			maxSpeed: 50,
-			x: x0,
-			y: y0,
+			x: 0,
+			y: 0,
 			image: zombieImage
 		});
-		characters.push(enemy);
+		characters[2] = createEnemy({
+			ai: "random",
+			context: canvas.getContext("2d"),
+			maxSpeed: 50,
+			x: canvas.width-64,
+			y: 0,
+			image: zombieImage
+		});
+		characters[3] = createEnemy({
+			ai: "random",
+			context: canvas.getContext("2d"),
+			maxSpeed: 50,
+			x: canvas.width-64,
+			y: canvas.height-64,
+			image: zombieImage
+		});
+		characters[4] = createEnemy({
+			ai: "homing",
+			context: canvas.getContext("2d"),
+			maxSpeed: 50,
+			x: 0,
+			y: canvas.height-64,
+			image: zombieImage2
+		});
 	}
+
+	var isFree = function(x, y, w, h){
+		var b; //buffer zone so that enemies are not placed on player
+		for(var i = 0; i < characters.length; i++){
+			c = characters[i];
+			if(c.role === "player")
+				b = 64;
+			else
+				b = 0;
+			var dx = x - c.x;
+			var dy = y - c.y;
+
+			if((dx < c.width + b) && (dx > -(w + b)) && (dy < c.height + b) && (dy > -(h + b) ))
+				return false;
+		}
+		return true
+	}
+
+	var newEnemy = function(){
+		var success = false;
+		for(var i = 0; i < 100; i++){
+			var x0 = Math.floor(Math.random()*(canvas.width-64));
+			var y0 = Math.floor(Math.random()*(canvas.height-64));
+			if(isFree(x0, y0, 64, 64)){
+				success = true;
+				score++;
+				break;
+			}
+		}
+		if(success){
+			var enemy = createEnemy({
+				ai: "random",
+				context: canvas.getContext("2d"),
+				maxSpeed: 50,
+				x: x0,
+				y: y0,
+				image: zombieImage
+			});
+			characters.push(enemy);
+		}
+	}
+	
+	var lastEnemy; //time the latest enemy was created
+	function updateGame(time){
+		var c;
+		// if(pressed["esc"] || pressed["p"]){		
+		// 	console.log("pause");
+		// 	paused = true;
+		// }
+		if(!lastEnemy)
+			lastEnemy = time;
+		if(time-lastEnemy > enemyInteval){
+			newEnemy();
+			lastEnemy = time;
+		}
+		for(var i = 0; i < characters.length;i++){
+			c = characters[i];
+				c.update(time, characters, clicked[i]);
+			if(c.dead)
+				characters.splice(i, 1); //remove chracter if dead
+			clicked[i]=false;
+		}
+	}
+
+
+	function removePlayer(){
+		for(var i = 0; i < characters.length;i++){
+			c = characters[i];
+			if(c.role === "player" && c.dead){
+				characters.splice(i, 1);
+				gameOver = true;
+				gameEnding = false;
+			}
+		}
+	}
+
+	function updateEnd(){
+		for(var i = 0; i < characters.length;i++){
+			c = characters[i];
+			c.endGame();
+		}
+	}
+	that.newGame = newGame
+	that.updateEnd = updateEnd
+	that.removePlayer = removePlayer
+	that.updateGame = updateGame
+	
+	that.init  = function(){
+		newGame();
+	}
+	return that;
 }
+game.init();
+
 
 var startMenu = false;
 var instructions = true;
 var paused = false;
 gameEnding = false; //final dying animation
+
 
 function update(time){
 	if(instructions){
@@ -165,55 +218,12 @@ function update(time){
 	if(gameOver && !highScores.upToDate)
 		highScores.add(score);
 	if(gameOver && pressed["enter"])
-		newGame();
+		game.newGame();
 	if(gameOver)
-		updateEnd();
+		game.updateEnd();
 	if(!gameOver && gameEnding)
-		removePlayer();
+		game.removePlayer();
 	if(!gameOver && !gameEnding)
-		updateGame(time);
+		game.updateGame(time);
 }
 
-var lastEnemy; //time the latest enemy was created
-function updateGame(time){
-	var c;
-	// if(pressed["esc"] || pressed["p"]){		
-	// 	console.log("pause");
-	// 	paused = true;
-	// }
-	if(!lastEnemy)
-		lastEnemy = time;
-	if(time-lastEnemy > enemyInteval){
-		newEnemy();
-		lastEnemy = time;
-	}
-	for(var i = 0; i < characters.length;i++){
-		c = characters[i];
-		// if(c.type === "player")
-			c.update(time, characters, clicked[i]);
-		// else if(c.type === "enemy")
-		// 	c.update(time, characters, clicked[i]);
-		if(c.dead)
-			characters.splice(i, 1); //remove chracter if dead
-		clicked[i]=false;
-	}
-}
-
-
-function removePlayer(){
-	for(var i = 0; i < characters.length;i++){
-		c = characters[i];
-		if(c.role === "player" && c.dead){
-			characters.splice(i, 1);
-			gameOver = true;
-			gameEnding = false;
-		}
-	}
-}
-
-function updateEnd(){
-	for(var i = 0; i < characters.length;i++){
-		c = characters[i];
-		c.endGame();
-	}
-}
