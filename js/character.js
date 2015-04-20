@@ -43,6 +43,7 @@ function character (options) {
 	that.lastAction = '';
 	that.direction = "down";
 	that.action  = "idle";
+	that.offset = {};
 
 	var lastRender = 0;
 	var offset = getOffset(that.action , frameIndex);
@@ -74,8 +75,10 @@ function character (options) {
 		return collision;
 	}
 
-	// Draw current sprite image
-	that.render = function (time) {
+	that.updateAnimationState = function (time) {
+		// if(that.action === 'die'){
+
+		// }
 		if((time-lastRender)>(1000/animations[that.action ].fps)){
 
 			// Move frameIndex to next frame 
@@ -83,23 +86,35 @@ function character (options) {
 				frameIndex = 0;
 			else{
 				frameIndex++;
-				if(frameIndex >= animations[that.action ].frames)
+				if(frameIndex >= animations[that.action].frames)
 					frameIndex = 0;
-				lastRender = time;
 			}
 			if(that.dying && frameIndex >= animations.die.frames-1){
 				that.dead = true;
 			}
+			lastRender = time;
 			that.lastAction = that.action;
-			offset = getOffset(that.action , frameIndex);
 
+			that.offset = getOffset(that.action, frameIndex);
 		}
+		// if(that.action === 'die'){
+
+		// 	console.log(that.lastAction);
+		// 	console.log(frameIndex);
+		// }
+	}
+
+	// Draw current sprite image
+	that.render = function () {
+		// if(that.action === 'die'){
+		// 	console.log(offset);
+		// }
 		that.context.drawImage(
 			that.image,
-			offset.x,
-			offset.y,
-			offset.width,
-			offset.height,
+			that.offset.x,
+			that.offset.y,
+			that.offset.width,
+			that.offset.height,
 			that.x,
 			that.y,
 			that.width,

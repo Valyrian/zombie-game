@@ -2,13 +2,13 @@ function createPlayer (options) {
 	var that = character(options);
 	that.role = "player";
 
-	var lastUpdate = 0; //bad idea
+	// var lastUpdate = 0; //bad idea
 
 	that.endGame = function () {
 		that.action = "die";
 	}
 
-	that.update = function (time, characters, clicked) {
+	that.update = function (time, lastUpdate, characters, clicked) {
 		// if(that.dying || that.dead || gameOver){
 		// 	that.action  = "die";
 		// 	return;

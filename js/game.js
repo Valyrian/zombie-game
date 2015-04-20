@@ -165,6 +165,7 @@ function game(){
 		}
 	}
 	
+	var lastUpdate = 0;
 	var lastEnemy; //time the latest enemy was created
 	function updateGame(time){
 		var c;
@@ -180,11 +181,22 @@ function game(){
 		}
 		for(var i = 0; i < characters.length;i++){
 			c = characters[i];
-				c.update(time, characters, clicked[i]);
+				c.update(time, lastUpdate, characters, clicked[i]);
 			if(c.dead)
 				characters.splice(i, 1); //remove chracter if dead
 			clicked[i]=false;
 		}
+		lastUpdate = time;
+	}
+
+	// var lastUpdate = 0;
+	function updateAnimationState(time){
+		// console.log(lastUpdate);
+		for(var i = 0; i < characters.length;i++){
+			c = characters[i];
+			c.updateAnimationState(time);
+		}
+		// lastUpdate = time;
 	}
 
 
@@ -205,10 +217,24 @@ function game(){
 			c.endGame();
 		}
 	}
-	that.newGame = newGame
-	that.updateEnd = updateEnd
-	that.removePlayer = removePlayer
-	that.updateGame = updateGame
+
+	var released = false;
+	that.pause = function(){
+		paused = true;
+		pauseRelesead = false;
+	}
+
+	that.resume = function(time){
+		paused = false;
+		lastUpdate = time;
+		pauseRelesead = false;
+	}
+
+	that.newGame = newGame;
+	that.updateEnd = updateEnd;
+	that.removePlayer = removePlayer;
+	that.updateGame = updateGame;
+	that.updateAnimationState = updateAnimationState;
 	
 	that.init  = function(){
 		newGame();
@@ -223,6 +249,8 @@ var instructions = true;
 var paused = false;
 gameEnding = false; //final dying animation
 
+var pauseRelesead = false;
+
 
 function update(time){
 	if(instructions){
@@ -230,11 +258,16 @@ function update(time){
 			instructions = false;
 		return;
 	}
+	if(!pressed["esc"] && !pressed["p"]) 
+		pauseRelesead = true;
 	if(paused){
-		// if(pressed["esc"] || pressed["p"]) 
-			// paused = false;
+		if((pressed["esc"] || pressed["p"]) && pauseRelesead) 
+			game.resume(time);
 		// console.log("unpause");
 		return
+	}else{
+		if((pressed["esc"] || pressed["p"]) && pauseRelesead) 
+			game.pause();
 	}
 	if(gameOver && !highScores.upToDate)
 		highScores.add(score);
@@ -246,5 +279,6 @@ function update(time){
 		game.removePlayer();
 	if(!gameOver && !gameEnding)
 		game.updateGame(time);
+	game.updateAnimationState(time);
 }
 

@@ -27,6 +27,21 @@ function render(time){
 
   if(instructions)
   	renderInstructions();
+
+  if(paused)
+  	renderPaused();
+
+}
+
+var renderPaused = function(newScore){
+	context.fillStyle="rgba(128, 128, 128, 0.5)";
+	context.fillRect(0, 0, canvas.width, canvas.height);
+
+	context.fillStyle = "white";
+  context.font = "bold 100px Arial";
+  context.textAlign="center";
+  context.textBaseline = "middle";
+  context.fillText("Game paused", canvas.width/2, canvas.height/2);
 }
 
 var renderInstructions = function(newScore){

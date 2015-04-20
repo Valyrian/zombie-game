@@ -4,7 +4,7 @@ function createEnemy (options) {
 	that.dead = false;
 	that.role = "enemy";
 
-	var lastUpdate = 0; //bad idea
+	// var lastUpdate = 0; //bad idea
 	var directionX = 0;
 	var directionY = 0;
 
@@ -64,7 +64,7 @@ function createEnemy (options) {
 		that.action = "cast";
 	}
 
-	that.update = function (time, characters, clicked) {
+	that.update = function (time, lastUpdate, characters, clicked) {
 		if(clicked)
 			that.dying = true;
 		if(that.dying){
