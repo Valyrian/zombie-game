@@ -138,8 +138,9 @@ function game(){
 
 	var isFree = function(x, y, w, h){
 		var b; //buffer zone so that enemies are not placed on player
-		for(var i = 0; i < characters.length; i++){
-			c = characters[i];
+		var allObjects = characters.concat(objects);
+		for(var i = 0; i < allObjects.length; i++){
+			c = allObjects[i];
 			if(c.role === "player")
 				b = 64;
 			else

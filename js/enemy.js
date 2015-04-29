@@ -5,6 +5,7 @@ function createEnemy (options) {
 	that.role = "enemy";
 
 	// var lastUpdate = 0; //bad idea
+	// var collisionCount = 0;
 	var directionX = 0;
 	var directionY = 0;
 
@@ -36,10 +37,33 @@ function createEnemy (options) {
 			directionY = 1;
 		if(dy < -margin)
 			directionY = -1;
+		// if(collisionCount === 1)
+		// 	directionY = 0;
+		// if(collisionCount === 2)
+		// 	directionX = 0;
+		// if(collisionCount === 3)
+		// 	directionY = -directionY;
+		// if(collisionCount === 4)
+		// 	directionX = -directionX;
 		// console.log(directionX, directionY);
 	}
 
-	var changeDirection = function(){
+	var changeDirection = function(collisionX, collisionY, newX, newY){
+		if(that.ai == "homing"){
+			homingDirection();
+			if(directionX != 0 && collisionY)
+				that.x = newX;
+			else if(directionY != 0 && collisionX)
+				that.y = newY;
+			
+		}
+
+		else
+			randomizeDirection();
+		updateOrientation();
+	}
+
+	var getDirection = function(){
 		if(that.ai == "homing")
 			homingDirection();
 		else
@@ -58,7 +82,7 @@ function createEnemy (options) {
 			that.direction = "down";
 	}
 
-	changeDirection();
+	getDirection();
 
 	that.endGame = function () {
 		that.action = "cast";
@@ -77,18 +101,22 @@ function createEnemy (options) {
 		// 	return;
 		// }
 		if(that.ai == "homing")
-			changeDirection();
+			getDirection();
 
 		that.action = "walk";
 
+		
 		var elapsedTime = time - lastUpdate;
 		var newX = that.x + Math.round(directionX*that.maxSpeed*(elapsedTime/1000));
 		var newY = that.y + Math.round(directionY*that.maxSpeed*(elapsedTime/1000));
 
 		var collision = that.collision(newX, newY, that);
+		var collisionX = that.collision(newX, that.y, that);
+		var collisionY = that.collision(that.x, newY, that);
 
 		//Only update postion if no collision is detected
 		if(!collision){
+			// collisionCount = 0;
 			that.x = newX;
 			that.y = newY;
 		}else if(collision.role === "player"){
@@ -96,7 +124,13 @@ function createEnemy (options) {
 			collision.dying = true;
 			gameEnding = true;
 		}else{
-			changeDirection();
+			// if(!collisionX)
+			// 	that.x = newX;
+			// if(!collisionY)
+			// 	that.y = newY;
+			// if(collisionX && collisionY)
+			changeDirection(collisionX, collisionY, newX, newY);
+			// collisionCount++;
 			// updateOrientation();
 		}
 
