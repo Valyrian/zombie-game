@@ -53,7 +53,13 @@ function createPlayer (options) {
 		var collision = that.collision(newX, newY, that);
 
 		//Only update postion if no collision with a wall
-		if(collision != "boundary"){
+
+		if(!collision){
+			that.x = newX;
+			that.y = newY;
+		}else if(collision === "boundary" || collision.role === "object"){
+			//Dont move
+		}else if(collision === "enemy"){
 			that.x = newX;
 			that.y = newY;
 		}

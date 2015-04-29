@@ -58,8 +58,9 @@ function character (options) {
 			collision = "boundary";
 
 		//Check for collisions with other characters
-		for(var i=0; i<characters.length;i++){
-			c = characters[i];
+		var allObjects = characters.concat(objects);
+		for(var i=0; i<allObjects.length;i++){
+			c = allObjects[i];
 			if(c.id === character.id) //is this one
 				continue;
 

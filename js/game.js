@@ -59,6 +59,9 @@ zombieImage.src = "sprites/zombie_r.png";
 var zombieImage2 = new Image();
 zombieImage2.src = "sprites/zombie_g.png";
 
+var treeImage = new Image();
+treeImage.src = "sprites/tree.png";
+
 nextId = 0; //global variable for creating unique ids for characters
 
 var score;
@@ -66,6 +69,7 @@ var player;
 gameOver = false;
 
 var characters = [];
+var objects = [];
 var game = game();
 
 function game(){
@@ -122,6 +126,14 @@ function game(){
 			y: canvas.height-64,
 			image: zombieImage2
 		});
+
+		tree = CreateObject({
+			context: canvas.getContext("2d"),
+			x: 100,
+			y: 100,
+			image: treeImage
+		});
+		objects[0] = tree;
 	}
 
 	var isFree = function(x, y, w, h){

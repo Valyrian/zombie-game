@@ -15,6 +15,10 @@ function render(time){
 		characters[i].render(time);
 	}
 
+	for(var i = 0; i < objects.length;i++){
+		objects[i].render(time);
+	}
+
 	renderHud();
 
 	if(!instructions)
