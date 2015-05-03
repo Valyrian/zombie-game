@@ -64,7 +64,7 @@ function createPlayer (options) {
 				that.x = newX;
 			if(!collisionY)
 				that.y = newY;
-		}else if(collision === "enemy"){
+		}else if(collision.role === "enemy"){
 			that.x = newX;
 			that.y = newY;
 		}
