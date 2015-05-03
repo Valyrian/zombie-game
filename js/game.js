@@ -83,8 +83,28 @@ function audioManager(){
 	}
 
 	that.endGame = function(){
-		music.pause();
+		// music.pause();
+		fade(music);
 		bite.play();
+	}
+
+	var fade = function(audio){
+		var vol = 1;
+		var interval = 20;
+		var step = 0.05;
+
+		var fadeout = setInterval(
+		  function() {
+		    if (vol > step) {
+		      vol -= step;
+		      audio.volume = vol;
+		    }
+		    else {
+		    	vol = 0;
+		    	audio.volume = vol;
+		      clearInterval(fadeout);
+		    }
+		  }, interval);
 	}
 
 	return that;
