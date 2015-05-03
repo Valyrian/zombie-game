@@ -65,6 +65,10 @@ ghostImage.src = "sprites/ghost.png";
 var treeImage = new Image();
 treeImage.src = "sprites/tree.png";
 
+var bite = new Audio('audio/bite.mp3');
+var zombie = new Audio('audio/zombie.mp3');
+
+
 nextId = 0; //global variable for creating unique ids for characters
 
 var score;
@@ -246,6 +250,15 @@ function game(){
 		pauseRelesead = false;
 	}
 
+	that.startGame = function(){
+		instructions = false;
+		zombie.play();
+	}
+
+	that.endGame = function(){
+		bite.play();
+	}
+
 	that.newGame = newGame;
 	that.updateEnd = updateEnd;
 	that.removePlayer = removePlayer;
@@ -271,7 +284,7 @@ var pauseRelesead = false;
 function update(time){
 	if(instructions){
 		if(pressed["enter"]) 
-			instructions = false;
+			game.startGame();
 		return;
 	}
 	if(!pressed["esc"] && !pressed["p"]) 

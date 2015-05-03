@@ -123,6 +123,7 @@ function createEnemy (options) {
 			collision.action = "die";
 			collision.dying = true;
 			gameEnding = true;
+			game.endGame();
 		}else{
 			// if(!collisionX)
 			// 	that.x = newX;
