@@ -75,7 +75,8 @@ function audioManager(){
 	// that.growl = new Audio('audio/growl.mp3');
 	// that.music = new Audio('audio/music.mp3');
 
-	that.sounds = [that.bite, that.growl, that.music];
+	var sounds = [bite, growl, music];
+	var paused = [];
 
 	that.startGame = function(){
 		growl.play();
@@ -86,6 +87,24 @@ function audioManager(){
 		// music.pause();
 		fade(music);
 		bite.play();
+	}
+
+	that.pause = function(){
+		paused = [];
+		for(var i = 0; i < sounds.length; i++){
+			sound = sounds[i];
+			if(!sound.paused){
+				sound.pause();
+				paused.push(sound);
+			}
+		}
+	}
+
+	that.resume = function(){
+		for(var i = 0; i < paused.length; i++){
+			sound = paused[i];
+			sound.play();
+		}
 	}
 
 	var fade = function(audio){
@@ -284,11 +303,13 @@ function game(){
 
 	var released = false;
 	that.pause = function(){
+		audioManager.pause();
 		paused = true;
 		pauseRelesead = false;
 	}
 
 	that.resume = function(time){
+		audioManager.resume();
 		paused = false;
 		lastUpdate = time;
 		pauseRelesead = false;
