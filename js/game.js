@@ -66,7 +66,31 @@ var treeImage = new Image();
 treeImage.src = "sprites/tree.png";
 
 var bite = new Audio('audio/bite.mp3');
-var zombie = new Audio('audio/zombie.mp3');
+var growl = new Audio('audio/growl.mp3');
+var music = new Audio('audio/music.mp3');
+
+function audioManager(){
+	that = {};
+	// that.bite = new Audio('audio/bite.mp3');
+	// that.growl = new Audio('audio/growl.mp3');
+	// that.music = new Audio('audio/music.mp3');
+
+	that.sounds = [that.bite, that.growl, that.music];
+
+	that.startGame = function(){
+		growl.play();
+		music.play();
+	}
+
+	that.endGame = function(){
+		music.pause();
+		bite.play();
+	}
+
+	return that;
+}
+
+audioManager = audioManager();
 
 
 nextId = 0; //global variable for creating unique ids for characters
@@ -252,11 +276,13 @@ function game(){
 
 	that.startGame = function(){
 		instructions = false;
-		zombie.play();
+		// growl.play();
+		audioManager.startGame();
 	}
 
 	that.endGame = function(){
-		bite.play();
+		// bite.play();
+		audioManager.endGame();
 	}
 
 	that.newGame = newGame;
