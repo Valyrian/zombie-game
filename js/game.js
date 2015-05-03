@@ -59,6 +59,9 @@ zombieImage.src = "sprites/zombie_r.png";
 var zombieImage2 = new Image();
 zombieImage2.src = "sprites/zombie_g.png";
 
+var ghostImage = new Image();
+ghostImage.src = "sprites/ghost.png";
+
 var treeImage = new Image();
 treeImage.src = "sprites/tree.png";
 
