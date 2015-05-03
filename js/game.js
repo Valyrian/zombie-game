@@ -126,7 +126,7 @@ function audioManager(){
 		    	vol = 0;
 		    	audio.volume = vol;
 		    	audio.pause();
-		    	audio.currentTime = 0;
+		    	audio.currentTime = 0; //start from beginning
 		      clearInterval(fadeout);
 		    }
 		  }, interval);
@@ -171,12 +171,12 @@ function game(){
 		characters[0] = player;
 
 		characters[1] = createEnemy({
-			ai: "random",
+			ai: "ghost",
 			context: canvas.getContext("2d"),
 			maxSpeed: 50,
 			x: 0,
 			y: 0,
-			image: zombieImage
+			image: ghostImage
 		});
 		characters[2] = createEnemy({
 			ai: "random",

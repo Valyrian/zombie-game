@@ -49,16 +49,21 @@ function createEnemy (options) {
 	}
 
 	var changeDirection = function(collisionX, collisionY, newX, newY){
-		if(that.ai == "homing"){
+		if(that.ai === "homing"){
 			homingDirection();
 			if(directionX != 0 && collisionY)
 				that.x = newX;
 			else if(directionY != 0 && collisionX)
 				that.y = newY;
-			
-		}
-
-		else
+		}else if(that.ai === "ghost"){
+			if(collisionY === "boundary" || collisionY === "boundary")
+				randomizeDirection();
+			else{
+				//continue straight through objects
+				that.x = newX;
+				that.y = newY;
+			}
+		}else
 			randomizeDirection();
 		updateOrientation();
 	}
@@ -117,6 +122,9 @@ function createEnemy (options) {
 		//Only update postion if no collision is detected
 		if(!collision){
 			// collisionCount = 0;
+			that.x = newX;
+			that.y = newY;
+		}else if(collision.role === "enemy" && collision.ai === "ghost"){
 			that.x = newX;
 			that.y = newY;
 		}else if(collision.role === "player"){
