@@ -74,11 +74,15 @@ function audioManager(){
 	// that.bite = new Audio('audio/bite.mp3');
 	// that.growl = new Audio('audio/growl.mp3');
 	// that.music = new Audio('audio/music.mp3');
-
+	var volume = 1;
 	var sounds = [bite, growl, music];
 	var paused = [];
 
 	that.startGame = function(){
+		for(var i = 0; i < sounds.length; i++){
+			sound = sounds[i];
+			sound.volume = volume;
+		}
 		growl.play();
 		music.play();
 	}
@@ -121,6 +125,8 @@ function audioManager(){
 		    else {
 		    	vol = 0;
 		    	audio.volume = vol;
+		    	audio.pause();
+		    	audio.currentTime = 0;
 		      clearInterval(fadeout);
 		    }
 		  }, interval);
@@ -321,6 +327,13 @@ function game(){
 		audioManager.startGame();
 	}
 
+	that.startNewGame = function(){
+		instructions = false;
+		// growl.play();
+		audioManager.startGame();
+		newGame();
+	}
+
 	that.endGame = function(){
 		// bite.play();
 		audioManager.endGame();
@@ -368,7 +381,7 @@ function update(time){
 	if(gameOver && !highScores.upToDate)
 		highScores.add(score);
 	if(gameOver && pressed["enter"])
-		game.newGame();
+		game.startNewGame();
 	if(gameOver)
 		game.updateEnd();
 	if(!gameOver && gameEnding)
