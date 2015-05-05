@@ -58,10 +58,17 @@
             </div>
         </div>
         <section>
-            <div id="gameContainer">
-                <canvas id="gameCanvas" width="800" height="600" class='img- responsive' data-girar="0"></canvas>
+		
+		<!--gameContainer has a set size and  overflow scrolls.
+		Canvas is the same size as the map.-->
+		
+            <div id="gameContainerContainer" width="800" height="600" style="overflow:scroll">
+			<div id="gameContainer">
+                <canvas id="gameCanvas" width="2897" height="2897"  ></canvas>
                 <div class="credits"><a href="http://gaurav.munjal.us/Universal-LPC-Spritesheet-Character-Generator/">Character sprites from here</a></div>
-            </div>
+            
+			</div>
+			</div>
         </section>
 
     </div>

@@ -6,11 +6,15 @@ function clear(){
 var grass = new Image();
 grass.src = 'sprites/grass.png';
 
+var gameMap = new Image();
+gameMap.src = 'images/map.png'
+
+
 function render(time){
 	var pattern = context.createPattern(grass, 'repeat');
   context.fillStyle = pattern;
   context.fillRect(0, 0, canvas.width, canvas.height);
-
+ context.drawImage(gameMap,0,0)
 	for(var i = 0; i < characters.length;i++){
 		characters[i].render(time);
 	}
