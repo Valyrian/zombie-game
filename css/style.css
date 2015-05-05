@@ -123,12 +123,7 @@ span.glyphicon {
     opacity: 0;
 }
 
-#gameCanvas {
-  width: 80%;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 20px;
-}
+
 
 .credits {
     width: 100%;
