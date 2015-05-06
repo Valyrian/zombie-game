@@ -26,11 +26,13 @@ function render(time){
 		objects[i].render(offset);
 	}
 
+	renderTextBox();
+
 	renderHud();
 
-	if(!instructions)
-	  for(var i=0; i<buttons.length;i++)
-	  	buttons[i].render();
+	// if(!instructions)
+	//   for(var i=0; i<buttons.length;i++)
+	//   	buttons[i].render();
 
   if(gameOver){
   	renderHighScores(score);
@@ -42,6 +44,17 @@ function render(time){
   if(paused)
   	renderPaused();
 
+}
+
+var renderTextBox = function(text){
+	context.fillStyle="rgba(128, 128, 128, 0.8)";
+	context.fillRect(100, canvas.height-50, canvas.width-200, 50);
+
+	context.fillStyle = "white";
+	context.font = "bold 20px Arial";
+	context.textAlign="center";
+	context.textBaseline = "bottom";
+	context.fillText("Testing Testing Testing Testing Testing", canvas.width/2, canvas.height);
 }
 
 var renderMap = function(offset){
@@ -140,17 +153,17 @@ var renderHud = function(){
   context.textBaseline = "top";
   context.fillText("Score " + score.toString(), 0, 0);
 
-	context.fillStyle = "black";
-  context.font = "bold 20px Arial";
-  context.textAlign="center";
-  context.textBaseline = "bottom";
-  context.fillText("Speed", canvas.width/2, canvas.height-20);
+	// context.fillStyle = "black";
+ //  context.font = "bold 20px Arial";
+ //  context.textAlign="center";
+ //  context.textBaseline = "bottom";
+ //  context.fillText("Speed", canvas.width/2, canvas.height-20);
 
-  context.fillStyle = "black";
-  context.font = "bold 20px Arial";
-  context.textAlign="center";
-  context.textBaseline = "bottom";
-  context.fillText(player.maxSpeed, canvas.width/2, canvas.height);
+ //  context.fillStyle = "black";
+ //  context.font = "bold 20px Arial";
+ //  context.textAlign="center";
+ //  context.textBaseline = "bottom";
+ //  context.fillText(player.maxSpeed, canvas.width/2, canvas.height);
 }
 
 var buttons = [];
