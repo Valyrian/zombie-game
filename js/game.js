@@ -177,6 +177,7 @@ gameOver = false;
 
 var characters = [];
 var objects = [];
+var walls = [];
 var game = game();
 
 function game(){
@@ -241,6 +242,13 @@ function game(){
 			image: treeImage
 		});
 		objects[0] = tree;
+		wall = CreateWall({
+			x1: 0,
+			y1: 100,
+			x2: 100,
+			y2: 0
+		});
+		walls[0] = wall;
 	}
 
 	var isFree = function(x, y, w, h){

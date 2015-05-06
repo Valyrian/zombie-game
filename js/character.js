@@ -57,10 +57,20 @@ function character (options) {
 			(newY + character.buffer.up < 0))
 			collision = "boundary";
 
+		for(var i=0; i<walls.length;i++){
+			// var w = walls[i];
+			var c = walls[i].collision(newX, newY, character);
+			// console.log(walls[i]);
+			if(c){
+				return c;
+				// console.log("collision");
+			}
+		}
+
 		//Check for collisions with other characters
 		var allObjects = characters.concat(objects);
 		for(var i=0; i<allObjects.length;i++){
-			c = allObjects[i];
+			var c = allObjects[i];
 			if(c.id === character.id) //is this one
 				continue;
 
