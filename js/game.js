@@ -178,6 +178,8 @@ gameOver = false;
 var characters = [];
 var objects = [];
 var walls = [];
+var texts = [];
+var activeText;
 var game = game();
 
 function game(){
@@ -249,6 +251,40 @@ function game(){
 			y2: 0
 		});
 		walls[0] = wall;
+		text = CreateTextArea({
+			x1: 0,
+			y1: 0,
+			x2: 300,
+			y2: 300,
+			line1: "test",
+			line2: ""
+		});
+		texts[0] = CreateTextArea({
+			x1: 0,
+			y1: 0,
+			x2: 300,
+			y2: 300,
+			line1: "test1",
+			line2: ""
+		});
+		texts[1] = CreateTextArea({
+			x1: 300,
+			y1: 0,
+			x2: 2000,
+			y2: 300,
+			line1: "test2",
+			line2: ""
+		});
+		texts[2] = CreateTextArea({
+			x1: 0,
+			y1: 0,
+			x2: 3000,
+			y2: 3000,
+			line1: "",
+			line2: ""
+		});
+
+		// texts[0] = text;
 	}
 
 	var isFree = function(x, y, w, h){
@@ -314,6 +350,7 @@ function game(){
 				characters.splice(i, 1); //remove chracter if dead
 			clicked[i]=false;
 		}
+		updateText();
 		lastUpdate = time;
 	}
 
@@ -343,6 +380,17 @@ function game(){
 		for(var i = 0; i < characters.length;i++){
 			c = characters[i];
 			c.endGame();
+		}
+	}
+
+	function updateText(){
+		for(var i = 0; i < texts.length;i++){
+			t = texts[i];
+			if(t.contains(player)){
+				activeText = t;
+				// console.log("text updated");
+				return;
+			}
 		}
 	}
 

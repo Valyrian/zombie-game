@@ -26,7 +26,7 @@ function render(time){
 		objects[i].render(offset);
 	}
 
-	renderTextBox();
+	renderTextBox(activeText);
 
 	renderHud();
 
@@ -46,15 +46,23 @@ function render(time){
 
 }
 
-var renderTextBox = function(text){
+var renderTextBox = function(activeText){
+	try{
+		var line1 = activeText.line1 || "";
+		var line2 = activeText.line2 || "";
+	}catch(e){
+		var line1 = "";
+		var line2 = "";
+	}
 	context.fillStyle="rgba(128, 128, 128, 0.8)";
-	context.fillRect(100, canvas.height-50, canvas.width-200, 50);
+	context.fillRect(100, canvas.height-60, canvas.width-200, 60);
 
 	context.fillStyle = "white";
 	context.font = "bold 20px Arial";
-	context.textAlign="center";
+	context.textAlign="left";
 	context.textBaseline = "bottom";
-	context.fillText("Testing Testing Testing Testing Testing", canvas.width/2, canvas.height);
+	context.fillText(line1, 110, canvas.height-10);
+	context.fillText(line2, 110, canvas.height-30);
 }
 
 var renderMap = function(offset){

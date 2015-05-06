@@ -102,7 +102,21 @@ function CreateWall (options) {
 			return that;
 		return false;
 	}
-
 	return that;
+}
 
+function CreateTextArea(options) {
+	var that = {};
+	that.x1 = options.x1;
+	that.y1 = options.y1;
+	that.x2 = options.x2;
+	that.y2 = options.y2;
+	that.line1 = options.line1;
+	that.line2 = options.line2;
+
+	that.contains = function(player){
+		if(player.x > that.x1 && player.x < that.x2 && player.y > that.y1 && player.y < that.y2)
+			return true;
+	}
+	return that;
 }
