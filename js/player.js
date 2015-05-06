@@ -8,6 +8,28 @@ function createPlayer (options) {
 		that.action = "die";
 	}
 
+	// var getCanvasPos = function (offset) {
+	// 	that.action = "die";
+	// 	result = {};
+	// 	result.x = that.x - offset.x
+	// 	result.y = that.y - offset.y
+	// 	return result;
+	// }
+
+	// that.render = function (offset) {
+	// 	var canvasPos = getCanvasPos(offset);
+	// 	that.context.drawImage(
+	// 		that.image,
+	// 		that.offset.x,
+	// 		that.offset.y,
+	// 		that.offset.width,
+	// 		that.offset.height,
+	// 		canvasPos.x,
+	// 		canvasPos.y,
+	// 		that.width,
+	// 		that.height);
+	// };
+
 	that.update = function (time, lastUpdate, characters, clicked) {
 		// if(that.dying || that.dead || gameOver){
 		// 	that.action  = "die";

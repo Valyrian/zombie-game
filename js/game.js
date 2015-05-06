@@ -69,6 +69,37 @@ var bite = new Audio('audio/bite.mp3');
 var growl = new Audio('audio/growl.mp3');
 var music = new Audio('audio/music.mp3');
 
+
+function gameMap(){
+	that = {};
+	that.image = new Image();
+	that.image.src = 'images/map.png';
+	that.w = 2975;
+	that.h = 2897;
+
+	that.getOffsetX = function(posX, canvasW){
+		var center = canvasW/2;
+		var offset = posX - center;
+		if(offset < 0)
+			return 0;
+		if(offset > that.w - canvasW)
+			return canvasW;
+		return offset;
+	}
+	that.getOffsetY = function(posY, canvasH){
+		var center = canvasH/2;
+		var offset = posY - center;
+		if(offset < 0)
+			return 0;
+		if(offset > that.h - canvasH)
+			return canvasH;
+		return offset;
+	}
+
+	return that;
+}
+var map = gameMap();
+
 function audioManager(){
 	that = {};
 	// that.bite = new Audio('audio/bite.mp3');

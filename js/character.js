@@ -51,9 +51,9 @@ function character (options) {
 	that.collision = function (newX, newY, character) {
 		var collision = false;
 		//Check that enemy isnt going off the canvas
-		if(((newX + character.width - character.buffer.right) > canvas.width) ||
+		if(((newX + character.width - character.buffer.right) > map.w) ||
 			(newX + character.buffer.left < 0) ||
-			((newY + character.height - character.buffer.down) > canvas.height) ||
+			((newY + character.height - character.buffer.down) > map.h) ||
 			(newY + character.buffer.up < 0))
 			collision = "boundary";
 
@@ -105,19 +105,23 @@ function character (options) {
 		// }
 	}
 
-	// Draw current sprite image
-	that.render = function () {
-		// if(that.action === 'die'){
-		// 	console.log(offset);
-		// }
+	var getCanvasPos = function (offset) {
+		result = {};
+		result.x = that.x - offset.x
+		result.y = that.y - offset.y
+		return result;
+	}
+
+	that.render = function (offset) {
+		var canvasPos = getCanvasPos(offset);
 		that.context.drawImage(
 			that.image,
 			that.offset.x,
 			that.offset.y,
 			that.offset.width,
 			that.offset.height,
-			that.x,
-			that.y,
+			canvasPos.x,
+			canvasPos.y,
 			that.width,
 			that.height);
 	};

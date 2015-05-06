@@ -19,15 +19,23 @@ function CreateObject (options) {
 
 	that.offset = {};
 
-	that.render = function () {
+	var getCanvasPos = function (offset) {
+		result = {};
+		result.x = that.x - offset.x
+		result.y = that.y - offset.y
+		return result;
+	}
+
+	that.render = function (offset) {
+		var canvasPos = getCanvasPos(offset);
 		that.context.drawImage(
 			that.image,
 			0,
 			0,
 			that.width,
 			that.height,
-			that.x,
-			that.y,
+			canvasPos.x,
+			canvasPos.y,
 			that.width,
 			that.height);
 	};

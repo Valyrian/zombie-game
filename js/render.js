@@ -6,17 +6,24 @@ function clear(){
 var grass = new Image();
 grass.src = 'sprites/grass.png';
 
+// var map = new Image();
+// map.src = 'images/map.png';
+
 function render(time){
-	var pattern = context.createPattern(grass, 'repeat');
-  context.fillStyle = pattern;
-  context.fillRect(0, 0, canvas.width, canvas.height);
+	// var pattern = context.createPattern(grass, 'repeat');
+ //  context.fillStyle = pattern;
+ //  context.fillRect(0, 0, canvas.width, canvas.height);
+ 	var offset = {};
+ 	offset.x = map.getOffsetX(player.x, canvas.width)
+	offset.y = map.getOffsetY(player.y, canvas.height)
+ 	renderMap(offset);
 
 	for(var i = 0; i < characters.length;i++){
-		characters[i].render(time);
+		characters[i].render(offset);
 	}
 
 	for(var i = 0; i < objects.length;i++){
-		objects[i].render(time);
+		objects[i].render(offset);
 	}
 
 	renderHud();
@@ -36,6 +43,20 @@ function render(time){
   	renderPaused();
 
 }
+
+var renderMap = function(offset){
+	// var pattern = context.createPattern(grass, 'repeat');
+	// context.fillStyle = pattern;
+	// context.fillRect(0, 0, canvas.width, canvas.height);
+	// console.log(player.x);
+	// var x = map.getOffsetX(player.x, canvas.width)
+	// var y = map.getOffsetY(player.y, canvas.height)
+	// console.log(x);
+	context.drawImage(map.image, -offset.x, -offset.y);
+	mapW = 2975;
+	mapH = 2897;
+}
+
 
 var renderPaused = function(newScore){
 	context.fillStyle="rgba(128, 128, 128, 0.5)";
