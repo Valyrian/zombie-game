@@ -308,8 +308,8 @@ function game(){
 	var newEnemy = function(){
 		var success = false;
 		for(var i = 0; i < 100; i++){
-			var x0 = Math.floor(Math.random()*(canvas.width-64));
-			var y0 = Math.floor(Math.random()*(canvas.height-64));
+			var x0 = Math.floor(Math.random()*(map.w-64));
+			var y0 = Math.floor(Math.random()*(map.h-64));
 			if(isFree(x0, y0, 64, 64)){
 				success = true;
 				score++;
