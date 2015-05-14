@@ -240,13 +240,25 @@ function game(){
 			image: zombieImage2
 		});
 
-		tree = CreateObject({
-			context: canvas.getContext("2d"),
-			x: 1000,
-			y: 1000,
-			image: treeImage
+		// tree = CreateObject({
+		// 	context: canvas.getContext("2d"),
+		// 	x: 1000,
+		// 	y: 1000,
+		// 	image: treeImage
+		// });
+		// objects[0] = tree;
+
+		$.getJSON("json/trees.json", function(data) {
+			var tree;
+		    for(var i = 0; i < data.length; i++){
+		    	var options = data[i];
+		    	options.image = treeImage;
+		    	options.context = canvas.getContext("2d");
+		    	tree = CreateObject(options);
+		    	objects.push(tree);
+	    	}
 		});
-		objects[0] = tree;
+
 		$.getJSON("json/walls.json", function(data) {
 			var wall;
 		    for(var i = 0; i < data.length; i++){
