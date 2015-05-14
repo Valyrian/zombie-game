@@ -52,6 +52,8 @@ function character (options) {
 
 	//Check for collision and return the object if on happens
 	that.collision = function (newX, newY, character) {
+		var newX = Math.round(newX); 
+		var newY = Math.round(newY); 
 		var collision = false;
 		//Check that enemy isnt going off the canvas
 		if(((newX + character.width - character.buffer.right) > map.w) ||
@@ -108,7 +110,7 @@ function character (options) {
 		}
 	}
 
-	//Convert game coordiated to canvas coordinates for drawing
+	//Convert game coordiates to canvas coordinates for drawing
 	var getCanvasPos = function (offset) {
 		result = {};
 		result.x = that.x - offset.x
