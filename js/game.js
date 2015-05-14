@@ -310,6 +310,24 @@ function game(){
 
 			if((dx < c.width + b) && (dx > -(w + b)) && (dy < c.height + b) && (dy > -(h + b) ))
 				return false;
+			
+			//Spawn buffers for buildings and non-game-zone
+			if( y> (7958.47 - 3.08229*x))
+				return false;
+			if( y> (1.11561*x + 1245))
+				return false;
+			if((x < 1385 ) && (x > 0 ) && (y < 996 ) && (y > 0 ))
+				return false;
+			if((x < 1692 ) && (x > 1507 ) && (y < 157 ) && (y > 0 ))
+				return false;
+			if((x < 1150 ) && (x > 410 ) && (y < 1645 ) && (y > 805 ))
+				return false;
+			if((x < 2125 ) && (x > 1952 ) && (y < 1585 ) && (y > 1150 ))
+				return false;
+			if((x < 2690 ) && (x > 1995 ) && (y < 2450 ) && (y > 1585 ))
+				return false;
+			
+			
 		}
 		return true
 	}
