@@ -1,3 +1,4 @@
+//Class for managing highscores
 function highScores(){
 	var scores;
 	var stored = localStorage.getItem("highScores");
@@ -69,7 +70,7 @@ var bite = new Audio('audio/bite.mp3');
 var growl = new Audio('audio/growl.mp3');
 var music = new Audio('audio/music.mp3');
 
-
+//Class for the game map
 function gameMap(){
 	that = {};
 	that.image = new Image();
@@ -77,6 +78,7 @@ function gameMap(){
 	that.w = 2975;
 	that.h = 2897;
 
+	//Get the position of the map, used for animation
 	that.getOffsetX = function(posX, canvasW){
 		var center = canvasW/2;
 		var offset = posX - center;
@@ -100,6 +102,7 @@ function gameMap(){
 }
 var map = gameMap();
 
+//Class for controlling the audio
 function audioManager(){
 	that = {};
 	var volume = 1;
@@ -120,6 +123,7 @@ function audioManager(){
 		bite.play();
 	}
 
+	//Pause all sounds when game is paused
 	that.pause = function(){
 		paused = [];
 		for(var i = 0; i < sounds.length; i++){
@@ -131,6 +135,7 @@ function audioManager(){
 		}
 	}
 
+	//Resume all sounds that were playing when game was paused
 	that.resume = function(){
 		for(var i = 0; i < paused.length; i++){
 			sound = paused[i];
@@ -138,6 +143,7 @@ function audioManager(){
 		}
 	}
 
+	//Smoothly fade away a sound
 	var fade = function(audio){
 		var vol = 1;
 		var interval = 20;
@@ -178,11 +184,13 @@ var texts = [];
 var activeText;
 var game = game();
 
+//A class for the game state
 function game(){
 	var enemies = 4;
 	var enemyInteval = 1000; //ms
 	that = {};
 
+	//Start a new game
 	var newGame = function(){
 		gameOver = false;
 		highScores.upToDate = false;
@@ -291,6 +299,7 @@ function game(){
 		// });
 	}
 
+	//Check if an enemy can be plased in the given coordinates
 	var isFree = function(x, y, w, h){
 		var b; //buffer zone so that enemies are not placed on player
 		var bb; //buffer for buildings
@@ -329,6 +338,7 @@ function game(){
 		return true
 	}
 
+	//Add an enemy to a random postion
 	var newEnemy = function(){
 		var success = false;
 		for(var i = 0; i < 100; i++){
@@ -355,6 +365,8 @@ function game(){
 	
 	var lastUpdate = 0;
 	var lastEnemy; //time the latest enemy was created
+
+	//Uupdate game state based on time
 	function updateGame(time){
 		var c;
 		if(!lastEnemy)
@@ -381,7 +393,7 @@ function game(){
 		}
 	}
 
-
+	//Remove player at the end of the game
 	function removePlayer(){
 		for(var i = 0; i < characters.length;i++){
 			c = characters[i];
@@ -393,6 +405,7 @@ function game(){
 		}
 	}
 
+	//Tell al characters the game has ended
 	function updateEnd(){
 		for(var i = 0; i < characters.length;i++){
 			c = characters[i];
@@ -400,6 +413,7 @@ function game(){
 		}
 	}
 
+	//Update the text box at the bottom of the screen, based on player location
 	function updateText(){
 		for(var i = 0; i < texts.length;i++){
 			t = texts[i];
@@ -460,7 +474,7 @@ gameEnding = false; //final dying animation
 
 var pauseRelesead = false;
 
-
+//Main update loop for the game
 function update(time){
 	if(instructions){
 		if(pressed["enter"]) 

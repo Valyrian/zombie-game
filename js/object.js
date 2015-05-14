@@ -1,3 +1,4 @@
+//Object class for creating trees
 function CreateObject (options) {
 	var that = {};
 	that.role = "object";
@@ -43,6 +44,8 @@ function CreateObject (options) {
 	return that;
 }
 
+//Class for inivisible walls
+//(walls are included in the map)
 function CreateWall (options) {
 	var that = {};
 	that.role = "object";
@@ -51,6 +54,7 @@ function CreateWall (options) {
 	that.x2 = options.x2;
 	that.y2 = options.y2;
 
+	//Check if two lines intersect, used for checking collisions
 	var lineIntersect = function(x1,y1,x2,y2, x3,y3,x4,y4) {
 	    var x=((x1*y2-y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
 	    var y=((x1*y2-y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
@@ -89,6 +93,8 @@ function CreateWall (options) {
 	    return true;
 	}
 
+	//Check if character has collided with the wall
+	//Check if any of the characters edges intersects with the wall
 	that.collision = function(newX, newY, character){
 		var x1 = newX + character.buffer.left;
 		var y1 = newY + character.buffer.up;
@@ -113,6 +119,7 @@ function CreateWall (options) {
 	return that;
 }
 
+//Class to define area that triggers the textbox
 function CreateTextArea(options) {
 	var that = {};
 	that.x1 = options.x1;

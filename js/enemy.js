@@ -7,6 +7,7 @@ function createEnemy (options) {
 	var directionX = 0;
 	var directionY = 0;
 
+	//Choose random direction, used in random zombies
 	var randomizeDirection = function(){
 		directionX = 0;
 		directionY = 0;
@@ -14,13 +15,14 @@ function createEnemy (options) {
 		if(num > 0 && num < 4)
 			directionX = 1;
 		if(num > 4)
-				directionX = -1;
+			directionX = -1;
 		if(num > 6 || num < 2)
 			directionY = -1;
 		if(num > 2 && num < 6)
 			directionY = 1;
 	}
 
+	//Determine the direction of the player, used by homing zombies
 	var homingDirection = function(){
 		directionX = 0;
 		directionY = 0;
@@ -37,6 +39,7 @@ function createEnemy (options) {
 			directionY = -1;
 	}
 
+	//Change direction based on enemy type
 	var changeDirection = function(collisionX, collisionY, newX, newY){
 		if(that.ai === "homing"){
 			homingDirection();
@@ -53,6 +56,7 @@ function createEnemy (options) {
 		updateOrientation();
 	}
 
+	//Get initial direction based on enemy type
 	var getDirection = function(){
 		if(that.ai === "homing")
 			homingDirection();
@@ -63,6 +67,7 @@ function createEnemy (options) {
 		updateOrientation();
 	}
 
+	//Update direction info to match the actual movement
 	var updateOrientation = function(){
 		if(directionY === -1)
 			that.direction = "up";
@@ -80,6 +85,7 @@ function createEnemy (options) {
 		that.action = "cast";
 	}
 
+	//Update enemy state based on time
 	that.update = function (time, lastUpdate, characters, clicked) {
 		if(clicked)
 			that.dying = true;

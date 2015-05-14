@@ -1,5 +1,6 @@
 function character (options) {
 
+	//Parameters for different characker animations
 	var animations = {
 		stand: {width: 64, height: 64, x: 0, y: 0,  frames: 1, fps: 1,  delay: 0,    up: 0, left: 1, down: 2, right: 3, final: false},
 		cast:  {width: 64, height: 64, x: 0, y: 0,  frames: 7, fps: 10, delay: 1000, up: 0, left: 1, down: 2, right: 3, final: false},
@@ -7,6 +8,8 @@ function character (options) {
 		idle:  {width: 64, height: 64, x: 0, y: 4,  frames: 2, fps: 1,  delay: 0,    up: 0, left: 1, down: 2, right: 3, final: false},
 		die:   {width: 64, height: 64, x: 0, y: 20, frames: 6, fps: 10, delay: 0,    up: 0, left: 0, down: 0, right: 0, final: true}
 	};
+
+	//Get position on the spritesheet
 	var getOffset = function(name, index){
 		var current = animations[name];
 		return ({
@@ -47,6 +50,7 @@ function character (options) {
 	var lastRender = 0;
 	var offset = getOffset(that.action , frameIndex);
 
+	//Check for collision and return the object if on happens
 	that.collision = function (newX, newY, character) {
 		var collision = false;
 		//Check that enemy isnt going off the canvas
@@ -83,6 +87,7 @@ function character (options) {
 		return collision;
 	}
 
+	//Update sprite based on time
 	that.updateAnimationState = function (time) {
 		if((time-lastRender)>(1000/animations[that.action ].fps)){
 			// Move frameIndex to next frame 
@@ -103,6 +108,7 @@ function character (options) {
 		}
 	}
 
+	//Convert game coordiated to canvas coordinates for drawing
 	var getCanvasPos = function (offset) {
 		result = {};
 		result.x = that.x - offset.x
@@ -110,6 +116,7 @@ function character (options) {
 		return result;
 	}
 
+	//Draw the sprite
 	that.render = function (offset) {
 		var canvasPos = getCanvasPos(offset);
 		that.context.drawImage(

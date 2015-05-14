@@ -6,6 +6,7 @@ function createPlayer (options) {
 		that.action = "die";
 	}
 
+	//Update player state based on time
 	that.update = function (time, lastUpdate, characters, clicked) {
 
 		that.action  = "idle";
@@ -42,7 +43,6 @@ function createPlayer (options) {
 		var collisionY = that.collision(that.x, newY, that);
 
 		//Only update postion if no collision with a wall
-
 		if(!collision){
 			that.x = newX;
 			that.y = newY;

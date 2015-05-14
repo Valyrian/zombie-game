@@ -1,4 +1,4 @@
-
+//Clear the whole canvas
 function clear(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -6,12 +6,15 @@ function clear(){
 var grass = new Image();
 grass.src = 'sprites/grass.png';
 
+//Render everything to canvas
 function render(time){
+	//Get the offset of the map
  	var offset = {};
  	offset.x = map.getOffsetX(player.x, canvas.width)
 	offset.y = map.getOffsetY(player.y, canvas.height)
  	renderMap(offset);
 
+ 	//Render all characters
 	for(var i = 0; i < characters.length;i++){
 		characters[i].render(offset);
 	}
@@ -127,6 +130,7 @@ var renderHighScores = function(newScore){
 	context.fillText("Press enter to play again", canvas.width/2, 120 + 20 + scores.length*25);
 }
 
+//Pad int to certain length for display, used for highscores
 var padInt = function(num, size) {
 	var s = "000000000" + num;
 	return s.substr(s.length-size);
