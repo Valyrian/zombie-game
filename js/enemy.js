@@ -4,8 +4,6 @@ function createEnemy (options) {
 	that.dead = false;
 	that.role = "enemy";
 
-	// var lastUpdate = 0; //bad idea
-	// var collisionCount = 0;
 	var directionX = 0;
 	var directionY = 0;
 
@@ -37,15 +35,6 @@ function createEnemy (options) {
 			directionY = 1;
 		if(dy < -margin)
 			directionY = -1;
-		// if(collisionCount === 1)
-		// 	directionY = 0;
-		// if(collisionCount === 2)
-		// 	directionX = 0;
-		// if(collisionCount === 3)
-		// 	directionY = -directionY;
-		// if(collisionCount === 4)
-		// 	directionX = -directionX;
-		// console.log(directionX, directionY);
 	}
 
 	var changeDirection = function(collisionX, collisionY, newX, newY){
@@ -59,14 +48,6 @@ function createEnemy (options) {
 			homingDirection();
 			that.x = newX;
 			that.y = newY;
-		// }else if(that.ai === "ghost"){
-		// 	if(collisionY === "boundary" || collisionY === "boundary")
-		// 		randomizeDirection();
-		// 	else{
-		// 		//continue straight through objects
-		// 		that.x = newX;
-		// 		that.y = newY;
-		// 	}
 		}else
 			randomizeDirection();
 		updateOrientation();
@@ -107,10 +88,6 @@ function createEnemy (options) {
 			return;
 		}
 
-		// if(gameOver){
-		// 	that.action = "cast";
-		// 	return;
-		// }
 		if(that.ai === "homing" || that.ai === "ghost")
 			getDirection();
 
@@ -127,7 +104,6 @@ function createEnemy (options) {
 
 		//Only update postion if no collision is detected
 		if(!collision){
-			// collisionCount = 0;
 			that.x = newX;
 			that.y = newY;
 		}else if(collision.role === "player"){
@@ -139,14 +115,7 @@ function createEnemy (options) {
 			that.x = newX;
 			that.y = newY;
 		}else{
-			// if(!collisionX)
-			// 	that.x = newX;
-			// if(!collisionY)
-			// 	that.y = newY;
-			// if(collisionX && collisionY)
 			changeDirection(collisionX, collisionY, newX, newY);
-			// collisionCount++;
-			// updateOrientation();
 		}
 
 		lastUpdate = time;

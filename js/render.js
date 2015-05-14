@@ -6,13 +6,7 @@ function clear(){
 var grass = new Image();
 grass.src = 'sprites/grass.png';
 
-// var map = new Image();
-// map.src = 'images/map.png';
-
 function render(time){
-	// var pattern = context.createPattern(grass, 'repeat');
- //  context.fillStyle = pattern;
- //  context.fillRect(0, 0, canvas.width, canvas.height);
  	var offset = {};
  	offset.x = map.getOffsetX(player.x, canvas.width)
 	offset.y = map.getOffsetY(player.y, canvas.height)
@@ -30,19 +24,15 @@ function render(time){
 
 	renderHud();
 
-	// if(!instructions)
-	//   for(var i=0; i<buttons.length;i++)
-	//   	buttons[i].render();
+	if(gameOver){
+		renderHighScores(score);
+	}
 
-  if(gameOver){
-  	renderHighScores(score);
-  }
+	if(instructions)
+		renderInstructions();
 
-  if(instructions)
-  	renderInstructions();
-
-  if(paused)
-  	renderPaused();
+	if(paused)
+		renderPaused();
 
 }
 
@@ -66,13 +56,6 @@ var renderTextBox = function(activeText){
 }
 
 var renderMap = function(offset){
-	// var pattern = context.createPattern(grass, 'repeat');
-	// context.fillStyle = pattern;
-	// context.fillRect(0, 0, canvas.width, canvas.height);
-	// console.log(player.x);
-	// var x = map.getOffsetX(player.x, canvas.width)
-	// var y = map.getOffsetY(player.y, canvas.height)
-	// console.log(x);
 	context.drawImage(map.image, -offset.x, -offset.y);
 	mapW = 2975;
 	mapH = 2897;
@@ -84,34 +67,29 @@ var renderPaused = function(newScore){
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
 	context.fillStyle = "white";
-  context.font = "bold 100px Arial";
-  context.textAlign="center";
-  context.textBaseline = "middle";
-  context.fillText("Game paused", canvas.width/2, canvas.height/2);
+	context.font = "bold 100px Arial";
+	context.textAlign="center";
+	context.textBaseline = "middle";
+	context.fillText("Game paused", canvas.width/2, canvas.height/2);
 }
 
 var renderInstructions = function(newScore){
-	// context.globalAlpha=0.1;
-	// context.fillStyle="white";
-	// context.fillRect(0, 0, canvas.width, canvas.height);
 	context.fillStyle="rgba(128, 128, 128, 0.8)";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
 	var instructions = new Image();
 	instructions.src = "images/instructions.png";
-	// context.globalAlpha=1;
 	context.drawImage(instructions,100,100);
 
 	context.fillStyle = "white";
-  context.font = "bold 20px Arial";
-  context.textAlign="center";
-  context.textBaseline = "top";
-  context.fillText("Press enter to start playing", canvas.width/2, 500);
+	context.font = "bold 20px Arial";
+	context.textAlign="center";
+	context.textBaseline = "top";
+	context.fillText("Press enter to start playing", canvas.width/2, 500);
 }
 
 var renderHighScores = function(newScore){
 	var message = "";
-	// if(newScore >= highScores[highScores.length-1]){
 	if(highScores.isHighScore(newScore)){
 		context.fillStyle = "white";
 		message = "High Score!";
@@ -119,12 +97,12 @@ var renderHighScores = function(newScore){
 		context.fillStyle = "red";
 		message = "You lost!";
 	}
-  context.font = "bold 100px Arial";
-  context.textAlign="center";
-  context.textBaseline = "top";
-  context.fillText(message, canvas.width/2, 0);
+	context.font = "bold 100px Arial";
+	context.textAlign="center";
+	context.textBaseline = "top";
+	context.fillText(message, canvas.width/2, 0);
 
-  var scores = highScores.get();
+	var scores = highScores.get();
 	var newFound = false;
 	var newIndex = scores.indexOf(newScore);
 
@@ -136,42 +114,30 @@ var renderHighScores = function(newScore){
 			newFound = true;
 		}else
 			context.fillStyle = "white";
-	  context.font = "bold 20px Arial";
-	  context.textAlign="center";
-	  context.textBaseline = "top";
-	  context.fillText(message, canvas.width/2, 120 + i*25);
+		context.font = "bold 20px Arial";
+		context.textAlign="center";
+		context.textBaseline = "top";
+		context.fillText(message, canvas.width/2, 120 + i*25);
 	}
 
 	context.fillStyle = "white";
-  context.font = "bold 20px Arial";
-  context.textAlign="center";
-  context.textBaseline = "top";
-  context.fillText("Press enter to play again", canvas.width/2, 120 + 20 + scores.length*25);
+	context.font = "bold 20px Arial";
+	context.textAlign="center";
+	context.textBaseline = "top";
+	context.fillText("Press enter to play again", canvas.width/2, 120 + 20 + scores.length*25);
 }
 
 var padInt = function(num, size) {
-  var s = "000000000" + num;
-  return s.substr(s.length-size);
+	var s = "000000000" + num;
+	return s.substr(s.length-size);
 }
 
 var renderHud = function(){
 	context.fillStyle = "black";
-  context.font = "bold 20px Arial";
-  context.textAlign="left";
-  context.textBaseline = "top";
-  context.fillText("Score " + score.toString(), 0, 0);
-
-	// context.fillStyle = "black";
- //  context.font = "bold 20px Arial";
- //  context.textAlign="center";
- //  context.textBaseline = "bottom";
- //  context.fillText("Speed", canvas.width/2, canvas.height-20);
-
- //  context.fillStyle = "black";
- //  context.font = "bold 20px Arial";
- //  context.textAlign="center";
- //  context.textBaseline = "bottom";
- //  context.fillText(player.maxSpeed, canvas.width/2, canvas.height);
+	context.font = "bold 20px Arial";
+	context.textAlign="left";
+	context.textBaseline = "top";
+	context.fillText("Score " + score.toString(), 0, 0);
 }
 
 var buttons = [];

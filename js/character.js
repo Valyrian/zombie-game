@@ -35,9 +35,8 @@ function character (options) {
 	that.x = options.x;
 	that.y = options.y;
 	that.maxSpeed = options.maxSpeed;
-	// that.type = options.type;
 	that.ai = options.ai;
-	that.directionX = 0; //that.direction 1, 0 or -1
+	that.directionX = 0; //characters walking direction 1, 0 or -1
 	that.directionY = 0;
 
 	that.lastAction = '';
@@ -75,12 +74,9 @@ function character (options) {
 		}
 
 		for(var i=0; i<walls.length;i++){
-			// var w = walls[i];
 			var c = walls[i].collision(newX, newY, character);
-			// console.log(walls[i]);
 			if(c){
 				return c;
-				// console.log("collision");
 			}
 		}
 
@@ -88,11 +84,7 @@ function character (options) {
 	}
 
 	that.updateAnimationState = function (time) {
-		// if(that.action === 'die'){
-
-		// }
 		if((time-lastRender)>(1000/animations[that.action ].fps)){
-
 			// Move frameIndex to next frame 
 			if(that.action  !== that.lastAction)
 				frameIndex = 0;
@@ -109,11 +101,6 @@ function character (options) {
 
 			that.offset = getOffset(that.action, frameIndex);
 		}
-		// if(that.action === 'die'){
-
-		// 	console.log(that.lastAction);
-		// 	console.log(frameIndex);
-		// }
 	}
 
 	var getCanvasPos = function (offset) {

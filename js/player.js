@@ -2,39 +2,11 @@ function createPlayer (options) {
 	var that = character(options);
 	that.role = "player";
 
-	// var lastUpdate = 0; //bad idea
-
 	that.endGame = function () {
 		that.action = "die";
 	}
 
-	// var getCanvasPos = function (offset) {
-	// 	that.action = "die";
-	// 	result = {};
-	// 	result.x = that.x - offset.x
-	// 	result.y = that.y - offset.y
-	// 	return result;
-	// }
-
-	// that.render = function (offset) {
-	// 	var canvasPos = getCanvasPos(offset);
-	// 	that.context.drawImage(
-	// 		that.image,
-	// 		that.offset.x,
-	// 		that.offset.y,
-	// 		that.offset.width,
-	// 		that.offset.height,
-	// 		canvasPos.x,
-	// 		canvasPos.y,
-	// 		that.width,
-	// 		that.height);
-	// };
-
 	that.update = function (time, lastUpdate, characters, clicked) {
-		// if(that.dying || that.dead || gameOver){
-		// 	that.action  = "die";
-		// 	return;
-		// }
 
 		that.action  = "idle";
 		var directionX = 0;
@@ -61,17 +33,10 @@ function createPlayer (options) {
 		}
 
 		//Calculate new position based on elapsed time
-		// var collision;
 		var elapsedTime = time - lastUpdate;
 		var newX = that.x + Math.round(directionX*that.maxSpeed*(elapsedTime/1000));
 		var newY = that.y + Math.round(directionY*that.maxSpeed*(elapsedTime/1000));
 
-		// //Check that player isnt going off the canvas
-		// if(((newX + that.width - that.buffer.right) > canvas.width) ||
-		// 	(newX + that.buffer.left < 0) ||
-		// 	((newY + that.height - that.buffer.down) > canvas.height) ||
-		// 	(newY + that.buffer.up < 0))
-		// 	collision = {};
 		var collision = that.collision(newX, newY, that);
 		var collisionX = that.collision(newX, that.y, that);
 		var collisionY = that.collision(that.x, newY, that);

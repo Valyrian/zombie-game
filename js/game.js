@@ -102,9 +102,6 @@ var map = gameMap();
 
 function audioManager(){
 	that = {};
-	// that.bite = new Audio('audio/bite.mp3');
-	// that.growl = new Audio('audio/growl.mp3');
-	// that.music = new Audio('audio/music.mp3');
 	var volume = 1;
 	var sounds = [bite, growl, music];
 	var paused = [];
@@ -119,7 +116,6 @@ function audioManager(){
 	}
 
 	that.endGame = function(){
-		// music.pause();
 		fade(music);
 		bite.play();
 	}
@@ -195,7 +191,6 @@ function game(){
 		characters = new Array(enemies+1);
 		// Create sprites
 		player = createPlayer({
-			// type: "human",
 			context: canvas.getContext("2d"),
 			maxSpeed: 100, //pixels per second
 			x: 2440,
@@ -250,16 +245,7 @@ function game(){
 		    	wall = CreateWall(data[i]);
 		    	walls.push(wall);
 	    	}
-		    // console.log("json");
-		    // console.log(json[0]);
 		});
-		// wall = CreateWall({
-		// 	x1: 0,
-		// 	y1: 100,
-		// 	x2: 100,
-		// 	y2: 0
-		// });
-		// walls[0] = wall;
 		text = CreateTextArea({
 			x1: 0,
 			y1: 0,
@@ -292,8 +278,6 @@ function game(){
 			line1: "",
 			line2: ""
 		});
-
-		// texts[0] = text;
 	}
 
 	var isFree = function(x, y, w, h){
@@ -362,10 +346,6 @@ function game(){
 	var lastEnemy; //time the latest enemy was created
 	function updateGame(time){
 		var c;
-		// if(pressed["esc"] || pressed["p"]){		
-		// 	console.log("pause");
-		// 	paused = true;
-		// }
 		if(!lastEnemy)
 			lastEnemy = time;
 		if(time-lastEnemy > enemyInteval){
@@ -383,14 +363,11 @@ function game(){
 		lastUpdate = time;
 	}
 
-	// var lastUpdate = 0;
 	function updateAnimationState(time){
-		// console.log(lastUpdate);
 		for(var i = 0; i < characters.length;i++){
 			c = characters[i];
 			c.updateAnimationState(time);
 		}
-		// lastUpdate = time;
 	}
 
 
@@ -417,7 +394,6 @@ function game(){
 			t = texts[i];
 			if(t.contains(player)){
 				activeText = t;
-				// console.log("text updated");
 				return;
 			}
 		}
@@ -439,19 +415,16 @@ function game(){
 
 	that.startGame = function(){
 		instructions = false;
-		// growl.play();
 		audioManager.startGame();
 	}
 
 	that.startNewGame = function(){
 		instructions = false;
-		// growl.play();
 		audioManager.startGame();
 		newGame();
 	}
 
 	that.endGame = function(){
-		// bite.play();
 		audioManager.endGame();
 	}
 
@@ -488,7 +461,6 @@ function update(time){
 	if(paused){
 		if((pressed["esc"] || pressed["p"]) && pauseRelesead) 
 			game.resume(time);
-		// console.log("unpause");
 		return
 	}else{
 		if((pressed["esc"] || pressed["p"]) && pauseRelesead) 
