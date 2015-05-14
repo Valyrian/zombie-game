@@ -302,7 +302,7 @@ function game(){
 		for(var i = 0; i < allObjects.length; i++){
 			c = allObjects[i];
 			if(c.role === "player")
-				b = 64;
+				b = 300;
 			else
 				b = 0;
 			var dx = x - c.x;
