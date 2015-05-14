@@ -55,17 +55,7 @@ function character (options) {
 			(newX + character.buffer.left < 0) ||
 			((newY + character.height - character.buffer.down) > map.h) ||
 			(newY + character.buffer.up < 0))
-			collision = "boundary";
-
-		for(var i=0; i<walls.length;i++){
-			// var w = walls[i];
-			var c = walls[i].collision(newX, newY, character);
-			// console.log(walls[i]);
-			if(c){
-				return c;
-				// console.log("collision");
-			}
-		}
+			return "boundary";
 
 		//Check for collisions with other characters
 		var allObjects = characters.concat(objects);
@@ -81,8 +71,19 @@ function character (options) {
 				&& (dx > -character.width + character.buffer.right + c.buffer.left) 
 				&& (dy < c.height - c.buffer.down - character.buffer.up) 
 				&& (dy > -character.height + character.buffer.down + c.buffer.up))
-				collision = c;
+				return c;
 		}
+
+		for(var i=0; i<walls.length;i++){
+			// var w = walls[i];
+			var c = walls[i].collision(newX, newY, character);
+			// console.log(walls[i]);
+			if(c){
+				return c;
+				// console.log("collision");
+			}
+		}
+
 		return collision;
 	}
 
