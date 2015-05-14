@@ -299,18 +299,7 @@ function game(){
 	var isFree = function(x, y, w, h){
 		var b; //buffer zone so that enemies are not placed on player
 		var allObjects = characters.concat(objects);
-		for(var i = 0; i < allObjects.length; i++){
-			c = allObjects[i];
-			if(c.role === "player")
-				b = 300;
-			else
-				b = 0;
-			var dx = x - c.x;
-			var dy = y - c.y;
-
-			if((dx < c.width + b) && (dx > -(w + b)) && (dy < c.height + b) && (dy > -(h + b) ))
-				return false;
-			
+		
 			//Spawn buffers for buildings and non-game-zone
 			if( y> (7958.47 - 3.08229*x))
 				return false;
@@ -326,8 +315,19 @@ function game(){
 				return false;
 			if((x < 2690 ) && (x > 1995 ) && (y < 2450 ) && (y > 1585 ))
 				return false;
-			
-			
+		
+		
+		for(var i = 0; i < allObjects.length; i++){
+			c = allObjects[i];
+			if(c.role === "player")
+				b = 300;
+			else
+				b = 0;
+			var dx = x - c.x;
+			var dy = y - c.y;
+
+			if((dx < c.width + b) && (dx > -(w + b)) && (dy < c.height + b) && (dy > -(h + b) ))
+				return false;
 		}
 		return true
 	}
