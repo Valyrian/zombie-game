@@ -45,10 +45,10 @@ var renderTextBox = function(activeText){
 		var line2 = "";
 	}
 	context.fillStyle="rgba(128, 128, 128, 0.8)";
-	context.fillRect(100, canvas.height-60, canvas.width-200, 60);
+	context.fillRect(0, canvas.height-60, canvas.width, 60);
 
 	context.fillStyle = "white";
-	context.font = "bold 20px Arial";
+	context.font = "bold 15px Arial";
 	context.textAlign="left";
 	context.textBaseline = "bottom";
 	context.fillText(line1, 110, canvas.height-10);

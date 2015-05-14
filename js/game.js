@@ -246,38 +246,49 @@ function game(){
 		    	walls.push(wall);
 	    	}
 		});
-		text = CreateTextArea({
-			x1: 0,
-			y1: 0,
-			x2: 300,
-			y2: 300,
-			line1: "test",
-			line2: ""
+
+		var text;
+		$.getJSON("json/flavor.json", function(data) {
+		    for(var i = 0; i < data.length; i++){
+		    	// console.log(i);
+		    	text = CreateTextArea(data[i]);
+		    	// console.log(text);
+		    	texts.push(text);
+	    	}
+			text = CreateTextArea({
+				x1: 0,
+				y1: 0,
+				x2: 3000,
+				y2: 3000,
+				line1: "",
+				line2: ""
+			});
+			texts.push(text);
 		});
-		texts[0] = CreateTextArea({
-			x1: 0,
-			y1: 0,
-			x2: 300,
-			y2: 300,
-			line1: "test1",
-			line2: ""
-		});
-		texts[1] = CreateTextArea({
-			x1: 300,
-			y1: 0,
-			x2: 2000,
-			y2: 300,
-			line1: "test2",
-			line2: ""
-		});
-		texts[2] = CreateTextArea({
-			x1: 0,
-			y1: 0,
-			x2: 3000,
-			y2: 3000,
-			line1: "",
-			line2: ""
-		});
+		// text = CreateTextArea({
+		// 	x1: 0,
+		// 	y1: 0,
+		// 	x2: 300,
+		// 	y2: 300,
+		// 	line1: "test",
+		// 	line2: ""
+		// });
+		// texts[0] = CreateTextArea({
+		// 	x1: 0,
+		// 	y1: 0,
+		// 	x2: 300,
+		// 	y2: 300,
+		// 	line1: "test1",
+		// 	line2: ""
+		// });
+		// texts[1] = CreateTextArea({
+		// 	x1: 300,
+		// 	y1: 0,
+		// 	x2: 2000,
+		// 	y2: 300,
+		// 	line1: "test2",
+		// 	line2: ""
+		// });
 	}
 
 	var isFree = function(x, y, w, h){
