@@ -303,7 +303,7 @@ function game(){
 			//Spawn buffers for buildings and non-game-zone
 			if( y> (7958.47 - 3.08229*x))
 				return false;
-			if( y> (1.11561*x + 1245))
+			if( y> (1245 + 0.517426*x ))
 				return false;
 			if((x < 1385 ) && (x > 0 ) && (y < 996 ) && (y > 0 ))
 				return false;
