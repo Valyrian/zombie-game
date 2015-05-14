@@ -298,22 +298,24 @@ function game(){
 
 	var isFree = function(x, y, w, h){
 		var b; //buffer zone so that enemies are not placed on player
+		var bb; //buffer for buildings
 		var allObjects = characters.concat(objects);
 		
 			//Spawn buffers for buildings and non-game-zone
+			bb=64;
 			if( y> (7958.47 - 3.08229*x))
 				return false;
 			if( y> (1245 + 0.517426*x ))
 				return false;
-			if((x < 1385 ) && (x > 0 ) && (y < 996 ) && (y > 0 ))
+			if((x < 1385+bb  ) && (x >= 0 ) && (y < 996+bb ) && (y >= 0 ))
 				return false;
-			if((x < 1692 ) && (x > 1507 ) && (y < 157 ) && (y > 0 ))
+			if((x < 1692+bb ) && (x > 1507 -bb ) && (y < 157+bb ) && (y >= 0 ))
 				return false;
-			if((x < 1150 ) && (x > 410 ) && (y < 1645 ) && (y > 805 ))
+			if((x < 1150+bb ) && (x > 410-bb ) && (y < 1645+bb ) && (y > 805-bb-bb ))
 				return false;
-			if((x < 2125 ) && (x > 1952 ) && (y < 1585 ) && (y > 1150 ))
+			if((x < 2125+bb ) && (x > 1952-bb ) && (y < 1585+bb ) && (y > 1150-bb ))
 				return false;
-			if((x < 2690 ) && (x > 1995 ) && (y < 2450 ) && (y > 1585 ))
+			if((x < 2690+bb ) && (x > 1995-bb ) && (y < 2450+bb ) && (y > 1585-bb ))
 				return false;
 		
 		
