@@ -244,13 +244,22 @@ function game(){
 			image: treeImage
 		});
 		objects[0] = tree;
-		wall = CreateWall({
-			x1: 0,
-			y1: 100,
-			x2: 100,
-			y2: 0
+		$.getJSON("json/walls.json", function(data) {
+			var wall;
+		    for(var i = 0; i < data.length; i++){
+		    	wall = CreateWall(data[i]);
+		    	walls.push(wall);
+	    	}
+		    // console.log("json");
+		    // console.log(json[0]);
 		});
-		walls[0] = wall;
+		// wall = CreateWall({
+		// 	x1: 0,
+		// 	y1: 100,
+		// 	x2: 100,
+		// 	y2: 0
+		// });
+		// walls[0] = wall;
 		text = CreateTextArea({
 			x1: 0,
 			y1: 0,
