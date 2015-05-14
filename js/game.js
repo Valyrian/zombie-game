@@ -208,7 +208,7 @@ function game(){
 		characters[0] = player;
 
 		characters[1] = createEnemy({
-			ai: "random",
+			ai: "ghost",
 			context: canvas.getContext("2d"),
 			maxSpeed: 50,
 			x: 0,
