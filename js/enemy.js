@@ -51,9 +51,9 @@ function createEnemy (options) {
 	var changeDirection = function(collisionX, collisionY, newX, newY){
 		if(that.ai === "homing"){
 			homingDirection();
-			if(directionX != 0 && collisionY)
+			if(directionX != 0 && !collisionX)
 				that.x = newX;
-			else if(directionY != 0 && collisionX)
+			else if(directionY != 0 && !collisionY)
 				that.y = newY;
 		}else if(that.ai === "ghost"){
 			if(collisionY === "boundary" || collisionY === "boundary")

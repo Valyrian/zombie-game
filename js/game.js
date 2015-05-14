@@ -198,8 +198,8 @@ function game(){
 			// type: "human",
 			context: canvas.getContext("2d"),
 			maxSpeed: 100, //pixels per second
-			x: canvas.width/2-32,
-			y: canvas.height/2-32,
+			x: 500,
+			y: 500,
 			image: playerImage
 		});
 		characters[0] = player;
