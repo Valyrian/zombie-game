@@ -198,8 +198,8 @@ function game(){
 			// type: "human",
 			context: canvas.getContext("2d"),
 			maxSpeed: 100, //pixels per second
-			x: 500,
-			y: 500,
+			x: 2440,
+			y: 10,
 			image: playerImage
 		});
 		characters[0] = player;
@@ -207,33 +207,33 @@ function game(){
 		characters[1] = createEnemy({
 			ai: "ghost",
 			context: canvas.getContext("2d"),
-			maxSpeed: 50,
+			maxSpeed: 40,
 			x: 0,
-			y: 0,
+			y: 2500,
 			image: ghostImage
 		});
 		characters[2] = createEnemy({
 			ai: "random",
 			context: canvas.getContext("2d"),
-			maxSpeed: 50,
-			x: canvas.width-64,
+			maxSpeed: 75,
+			x: 2240,
 			y: 0,
 			image: zombieImage
 		});
 		characters[3] = createEnemy({
 			ai: "random",
 			context: canvas.getContext("2d"),
-			maxSpeed: 50,
-			x: canvas.width-64,
-			y: canvas.height-64,
+			maxSpeed: 75,
+			x: 2440,
+			y: 200,
 			image: zombieImage
 		});
 		characters[4] = createEnemy({
 			ai: "homing",
 			context: canvas.getContext("2d"),
-			maxSpeed: 50,
-			x: 0,
-			y: canvas.height-64,
+			maxSpeed: 80,
+			x: 2740,
+			y: 10,
 			image: zombieImage2
 		});
 
