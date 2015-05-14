@@ -202,7 +202,7 @@ function game(){
 		characters[1] = createEnemy({
 			ai: "ghost",
 			context: canvas.getContext("2d"),
-			maxSpeed: 40,
+			maxSpeed: 50,
 			x: 0,
 			y: 2500,
 			image: ghostImage
@@ -226,7 +226,7 @@ function game(){
 		characters[4] = createEnemy({
 			ai: "homing",
 			context: canvas.getContext("2d"),
-			maxSpeed: 80,
+			maxSpeed: 75,
 			x: 2740,
 			y: 10,
 			image: zombieImage2

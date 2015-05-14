@@ -95,8 +95,8 @@ function createEnemy (options) {
 
 		
 		var elapsedTime = time - lastUpdate;
-		var newX = that.x + Math.round(directionX*that.maxSpeed*(elapsedTime/1000));
-		var newY = that.y + Math.round(directionY*that.maxSpeed*(elapsedTime/1000));
+		var newX = that.x + directionX*that.maxSpeed*(elapsedTime/1000);
+		var newY = that.y + directionY*that.maxSpeed*(elapsedTime/1000);
 
 		var collision = that.collision(newX, newY, that);
 		var collisionX = that.collision(newX, that.y, that);

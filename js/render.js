@@ -140,32 +140,32 @@ var renderHud = function(){
 	context.fillText("Score " + score.toString(), 0, 0);
 }
 
-var buttons = [];
+// var buttons = [];
 
-var createButton = function(text0, x0, y0, w0, h0){
-	var that = {};
-	that.text = text0;
-	that.x = x0;
-	that.y = y0 || (canvas.height-20-1);
-	that.w = w0 || 20;
-	that.h = h0 || 20;
+// var createButton = function(text0, x0, y0, w0, h0){
+// 	var that = {};
+// 	that.text = text0;
+// 	that.x = x0;
+// 	that.y = y0 || (canvas.height-20-1);
+// 	that.w = w0 || 20;
+// 	that.h = h0 || 20;
 
-	that.clicked = false;
+// 	that.clicked = false;
 
-	that.render = function(){
-		context.textBaseline = "top";
-		context.fillText(that.text, that.x+that.w/2, that.y);
-		context.textAlign="center";
+// 	that.render = function(){
+// 		context.textBaseline = "top";
+// 		context.fillText(that.text, that.x+that.w/2, that.y);
+// 		context.textAlign="center";
 
-		context.rect(that.x, that.y, that.w, that.h);
-		context.stroke();
-	}
+// 		context.rect(that.x, that.y, that.w, that.h);
+// 		context.stroke();
+// 	}
 
-	return that;
-}
+// 	return that;
+// }
 
-var button1 = createButton("-", canvas.width/2-50);
+// var button1 = createButton("-", canvas.width/2-50);
 
-buttons.push(button1);
-var button2 = createButton("+", canvas.width/2+30);
-buttons.push(button2);
+// buttons.push(button1);
+// var button2 = createButton("+", canvas.width/2+30);
+// buttons.push(button2);
