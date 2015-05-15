@@ -235,7 +235,7 @@ function game(){
 			ai: "homing",
 			context: canvas.getContext("2d"),
 			maxSpeed: 75,
-			x: 2840,
+			x: 2800,
 			y: 10,
 			image: zombieImage2
 		});
