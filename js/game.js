@@ -219,23 +219,23 @@ function game(){
 			ai: "random",
 			context: canvas.getContext("2d"),
 			maxSpeed: 75,
-			x: 2240,
-			y: 0,
+			x: 500,
+			y: 500,
 			image: zombieImage
 		});
 		characters[3] = createEnemy({
 			ai: "random",
 			context: canvas.getContext("2d"),
 			maxSpeed: 75,
-			x: 2440,
-			y: 200,
+			x: 1000,
+			y: 1000,
 			image: zombieImage
 		});
 		characters[4] = createEnemy({
 			ai: "homing",
 			context: canvas.getContext("2d"),
 			maxSpeed: 75,
-			x: 2740,
+			x: 2840,
 			y: 10,
 			image: zombieImage2
 		});
